@@ -1,0 +1,31 @@
+Sie wollen alle C-Makros (#xxx) finden, die *nicht* der Konvention folgen, wonach Makros linksbündig (am Zeilenanfang) stehen.
+grep -rn '[[:space:]]+#[_[:alpha:]][_[:alnum:]]*' .
+recursive in current dir, with line numbers, search for one or more space followed by '#' and an identifier
+
+Sie wollen nur .h-Dateien des aktuellen Verzeichnisses anzeigen. Welche Befehle koennen Sie verwenden?
+ls *.h
+ls | grep '*.h'
+ls | grep *.h
+ls | grep ".*\.h"
+
+Was trifft auf den Regulären Ausdruck /*/ zu?
+Ungültig, es muss ein Zeichen vor dem Stern stehen
+Gültig, der Stern heißt hier "beliebiger String"
+Gültig, der Stern hat hier keine besondere Bedeutung, mit dem Ausdruck findet man einfach Sterne.
+
+Welche Dateinamen findet der Reguläre Ausdruck /*.c/?
+.config
+main.c
+main.h
+module.cpp
+
+Wie verwendet man die POSIX Character Ranges/Classes? Markieren Sie, wo sie richtig verwendet wurden.
+[[:digit:]]+
+[_[:alpha:]][[:alnum:]]*
+[:alpha:]*
+0x[:xdigit:]+
+
+Welche der folgenden sind RE-Dialekte?
+POSIX Basic Regular Expressions (BRE)
+POSIX Extended Regular Expesssions (ERE)
+Perl Compatible Regular Expressions (PCRE)
