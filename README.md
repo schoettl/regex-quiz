@@ -29,9 +29,9 @@ Als Methode und Medien könnte man sich vorstellen:
 [1] besonders wichtig ist, "übliche" Fallen zu erleben, z.B. 
 
 * den Unterschied zwischen "Verankerung" `/^.../`, `/...$/` und ohne `/.../`
-*  die Probleme mit dem Stern `/*.*/, /*.txt/, /*abc/,`
-* oder auch die ungewollten Leerstrings ` /.*/ `
-* oder auch den Unterschied zwischen "alle Dateien, die nicht ... enthalten" und "Dateien, die nichtin jeder Zeile ... enthalten"
+* die Probleme mit dem Stern `/*.*/`, `/*.txt/`, `/*abc/`,
+* oder auch die ungewollten Leerstrings `/.*/ `
+* oder auch den Unterschied zwischen "alle Dateien, die nicht ... enthalten" und "Dateien, die nicht in jeder Zeile ... enthalten"
 * was ist mit "und" bzw. "oder" bei matching...
 
 
