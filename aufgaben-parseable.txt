@@ -39,13 +39,30 @@ Input: POSIX Basic Regular Expressions (BRE),POSIX Extended Regular Expesssions 
 Answer: 2
 Reason: <b>Pearl Compatible Regular Expressions (PCRE)</b> ist eine Programmbibliothek für Reguläre Ausdrücke.  Der implementierte Dialekt ist ziemlich kompatibel mit den Regulären Ausdrücken der Programmiersprache Perl und ist damit viel umfangreicher als der POSIX-Standard.
 
+Quizzes: RE
 Intro: Welche Zeichen findet der Reguläre Ausdruck <code>/[{,}().\+*?[$^-]/</code> (nach POSIX)?  Oder ist das ein Syntaxfehler?
 Input: Jedes Zeichen (buchstabengetreu) zwischen der ersten öffnenden und der letzten schließenden eckigen Klammer,Sytaxfehler&#44; zumindest einige der Zeichen dürfen innerhalb eckiger Klammern so nicht verwendet werden,Jedes Zeichen&#44; außer "[", "^" und "-" (müssen entwertet werden),Jedes Zeichen&#44; außer "^" und "-" (müssen entwertet werden)
 Answer: 0
 Reason: Bei den Regulären Ausdrücken nach POSIX verlieren Metazeichen innerhalb eckiger Klammern (bracket expression) ihre besondere Bedeutung.  Die einzigen besonderen Zeichen zwischen eckigen Klammern sind "^", "-" und "]".  Diese müssen gegebenenfalls durch findige Platzierung ("clever placement") entwertet werden.  Zum Beispiel findet /[]^-]/ das Zeichen "]", "^" oder "-".
 
+Quizzes: RE
 Intro: Was macht man (bei POSIX REs) um genau eines der Zeichen "^", "-" oder "]" zu finden?
 Input: /\^|-|]/,/[]^-]/,/[\^\-\]]/
 Answer: 01
 Reason: Innerhalb von eckigen Klammern (bracket expression) haben die üblichen Metazeichen keine besondere Bedeutung.  Damit leitet der Backslash ("\") hier auch keine Escape-Sequenz ein, er hat keine entwertende Wirkung.  Die besonderen Zeichen "^", "-" und "]" müssen durch findige Platzierung entwertet werden -- oder durch Alternativen ("|") ausgedrückt werden.
 
+Quizzes: RE
+Intro: Schreiben Sie einen einfachen Regulären Ausdruck, um TODO-, FIXME- und XXX-Kommentare im Quellcode zu finden.  Solche Kommentare sehen z. B. so aus: // TODO exception abfangen
+Answer: //.*\(TODO\|FIXME\|XXX\)
+Reason: Ein einfacher Regulärer Ausdruck für diesen Zweck wäre // (TODO|FIXME|XXX)
+
+Quizzes: RE
+Intro: Was bewirkt folgender Befehl: <code>grep -rnE 'RE' .</code>
+Input:
+Im aktuellen Verzeichnis (<code>.</code>) werden rekursiv (<code>-r</code>) Dateien durchsucht.
+Dateien werden nach dem nach dem Regulären Ausdruck <code>.</code> durchsucht.
+Bei jedem Fund wird die Zeilennummer mitangezeigt (<code>-n</code>).
+Der Reguläre Ausdruck <code>RE</code> wird als Extended Regular Expression (<code>-E</code>) interpretiert.
+Die Ausgabe des Befehls ist die Anzahl der gefundenen Zeilen (<code>-n</code>)
+Answer: 023
+Reason: Der letzte Parameter des Aufrufs von grep ist der Dateiname.  Daher ist die die Antwort falsch, die sagt dass nach dem Regulären Ausdruck <code>.</code> gesucht wird.  Die Option <code>-n, --line-number</code> sorgt dafür, dass die Zeilenzahl zu jedem Fund mitangezeigt wird.  Die Option <code>-c, --count</code> zeigt statt der normalen Ausgabe die Anzahl der gefundenen Zeilen an.
