@@ -1,57 +1,114 @@
-Intro: Wofür stehen die Abkürzungen BRE und ERE?
-Question Type: checkbox
-Input: POSIX Extended Regular Expressions,Perl Based Regular Expressions,Expandable Regular Expressions,POSIX Basic Regular Expressions
-Answer: 03
-Reason: <b>Basic Regular Expressions</b> (BRE) und <b>Extended Regular Expressions</b> (ERE) sind im POSIX-Standard beschrieben und werden von Tools wie grep und vi implementiert.
-Reference: http://www.regular-expressions.info/posix.html
+#RE-1
+
+Wofür stehen die Abkürzungen BRE und ERE?
+
+[x] POSIX Extended Regular Expressions
+[_] Perl Based Regular Expressions
+[_] Expandable Regular Expressions
+[x] POSIX Basic Regular Expressions
+
+
+Basic Regular Expressions (BRE) und Extended Regular Expressions (ERE) sind im POSIX-Standard beschrieben und werden von Tools wie grep und vi implementiert.
+http://www.regular-expressions.info/posix.html
 Hint: Beide sind im POSIX-Standard definiert.
-Image: 
-Comment:
 
-Intro: Sie wollen nur Dateien mit der Endung ".h" des aktuellen Verzeichnisses anzeigen.  Welche Befehle koennen Sie verwenden?
-Question Type: checkbox
-Input: <code>ls *.h</code>,<code>ls | grep '*.h'</code>,<code>ls | grep "\.h$"</code>,<code>ls | grep *.h</code>
-Answer: 2
-Reason: Genau genommen funktioniert nur der Befehl <b><code>ls | grep "\.h$"</code></b>
+#RE-2
 
-Intro: Was trifft auf den Regulären Ausdruck <code>/*/</code> zu?
-Question Type: radio
-Input: Ungültig&#44; es muss ein Zeichen vor dem Stern stehen,Gültig&#44; der Stern heißt hier "beliebiger String",Gültig&#44; der Stern hat hier keine besondere Bedeutung&#44; mit dem Ausdruck findet man einfach Sterne
-Answer: 2
-Reason: 
+Sie wollen nur Dateien mit der Endung ".h" des aktuellen Verzeichnisses anzeigen.  Welche Befehle koennen Sie verwenden?
 
-Intro: Wie verwendet man die POSIX Character Ranges/Classes?  Markieren Sie, wo sie richtig verwendet wurden.
-Question Type: checkbox
-Input: <code>[[:digit:]]+</code>,<code>[_[:alpha:]][[:alnum:]]*</code>,<code>[:alpha:]*</code>,<code>0x[:xdigit:]+</code>
-Answer: 01
-Reason: Richtig sind <b>...</b> und <b>...</b>.  Beispielsweise entspricht die vordefinierte Character Range <code>[:alpha:]</code> <code>A-Za-z</code>, daher muss sie nochmal in eckige Klammern eingeschlossen werden: <code>[[:alpha:]]</code>.  Dadurch sind auch mehrere Ranges kombinierbar: <code>[[:alpha][:space:]]</code> (nur Buchstaben und Leerzeichen)
+[_] `ls *.h`
+[_] `ls | grep '*.h'`
+[x] `ls | grep "\.h$"`
+[_] `ls | grep *.h`
 
-Intro: Bei Regulären Ausdrücken gibt es viele Dialekte.  Welcher der folgenden ist der (sprachlich) umangreichste?
-Question Type: radio
-Input: POSIX Basic Regular Expressions (BRE),POSIX Extended Regular Expesssions (ERE),Perl Compatible Regular Expressions (PCRE)
-Answer: 2
-Reason: <b>Pearl Compatible Regular Expressions (PCRE)</b> ist eine Programmbibliothek für Reguläre Ausdrücke.  Der implementierte Dialekt ist ziemlich kompatibel mit den Regulären Ausdrücken der Programmiersprache Perl und ist damit viel umfangreicher als der POSIX-Standard.
+Genau genommen funktioniert nur der Befehl `ls | grep "\.h$"`
 
-Intro: Welche Zeichen findet der Reguläre Ausdruck <code>/[{,}().\+*?[$^-]/</code> (nach POSIX)?  Oder ist das ein Syntaxfehler?
-Input: Jedes Zeichen (buchstabengetreu) zwischen der ersten öffnenden und der letzten schließenden eckigen Klammer,Sytaxfehler&#44; zumindest einige der Zeichen dürfen innerhalb eckiger Klammern so nicht verwendet werden,Jedes Zeichen&#44; außer "[", "^" und "-" (müssen entwertet werden),Jedes Zeichen&#44; außer "^" und "-" (müssen entwertet werden)
-Answer: 0
-Reason: Bei den Regulären Ausdrücken nach POSIX verlieren Metazeichen innerhalb eckiger Klammern (bracket expression) ihre besondere Bedeutung.  Die einzigen besonderen Zeichen zwischen eckigen Klammern sind "^", "-" und "]".  Diese müssen gegebenenfalls durch findige Platzierung ("clever placement") entwertet werden.  Zum Beispiel findet /[]^-]/ das Zeichen "]", "^" oder "-".
+#RE-3
 
-Intro: Was macht man (bei POSIX REs) um genau eines der Zeichen "^", "-" oder "]" zu finden?
-Input: /\^|-|]/,/[]^-]/,/[\^\-\]]/
-Answer: 01
-Reason: Innerhalb von eckigen Klammern (bracket expression) haben die üblichen Metazeichen keine besondere Bedeutung.  Damit leitet der Backslash ("\") hier auch keine Escape-Sequenz ein, er hat keine entwertende Wirkung.  Die besonderen Zeichen "^", "-" und "]" müssen durch findige Platzierung entwertet werden -- oder durch Alternativen ("|") ausgedrückt werden.
+Was trifft auf den Regulären Ausdruck `/*/` zu?
+(_) Ungültig: es muss ein Zeichen vor dem Stern stehen
+(_) Gültig: der Stern heißt hier "beliebiger String"
+(x) Gültig: der Stern hat hier keine besondere Bedeutung - mit dem Ausdruck findet man einfach Sterne
 
-Intro: Schreiben Sie einen einfachen Regulären Ausdruck, um TODO-, FIXME- und XXX-Kommentare im Quellcode zu finden.  Solche Kommentare sehen z. B. so aus: // TODO exception abfangen
-Answer: //.*\(TODO\|FIXME\|XXX\)
-Reason: Ein einfacher Regulärer Ausdruck für diesen Zweck wäre // (TODO|FIXME|XXX)
+#RE-4
 
-Intro: Was bewirkt folgender Befehl: <code>grep -rnE 'RE' .</code>
-Input:
-Im aktuellen Verzeichnis (<code>.</code>) werden rekursiv (<code>-r</code>) Dateien durchsucht.
-Dateien werden nach dem nach dem Regulären Ausdruck <code>.</code> durchsucht.
-Bei jedem Fund wird die Zeilennummer mitangezeigt (<code>-n</code>).
-Der Reguläre Ausdruck <code>RE</code> wird als Extended Regular Expression (<code>-E</code>) interpretiert.
-Die Ausgabe des Befehls ist die Anzahl der gefundenen Zeilen (<code>-n</code>)
-Answer: 023
-Reason: Der letzte Parameter des Aufrufs von grep ist der Dateiname.  Daher ist die die Antwort falsch, die sagt dass nach dem Regulären Ausdruck <code>.</code> gesucht wird.  Die Option <code>-n, --line-number</code> sorgt dafür, dass die Zeilenzahl zu jedem Fund mitangezeigt wird.  Die Option <code>-c, --count</code> zeigt statt der normalen Ausgabe die Anzahl der gefundenen Zeilen an.
+Wie verwendet man die POSIX Character Ranges?  Markieren Sie, wo sie richtig verwendet wurden.
+
+[x] `[[:digit:]]+`
+[x] `[_[:alpha:]][[:alnum:]]*`
+[_] `[:alpha:]*`
+[_] `0x[:xdigit:]+`
+
+Richtig sind ... und ....  Beispielsweise entspricht die vordefinierte Character Range <code>[:alpha:]</code> <code>A-Za-z</code>, daher muss sie nochmal in eckige Klammern eingeschlossen werden: <code>[[:alpha:]]</code>.  Dadurch sind auch mehrere Ranges kombinierbar: <code>[[:alpha][:space:]]</code> (nur Buchstaben und Leerzeichen)
+
+#RE-5
+
+Bei Regulären Ausdrücken gibt es viele Dialekte.  Welcher der folgenden ist der (sprachlich) umangreichste?
+
+(_) POSIX Basic Regular Expressions (BRE)
+(_) POSIX Extended Regular Expesssions (ERE)
+(x) Perl Compatible Regular Expressions (PCRE)
+
+Pearl Compatible Regular Expressions (PCRE) ist eine Programmbibliothek für Reguläre Ausdrücke.  Der implementierte Dialekt ist ziemlich kompatibel mit den Regulären Ausdrücken der Programmiersprache Perl und ist damit viel umfangreicher als der POSIX-Standard.
+
+#RE-6
+
+Welche Zeichen findet der Reguläre Ausdruck `/[{,}().\+*?[$^-]/` (nach POSIX)?  Oder ist das ein Syntaxfehler?
+
+(x) Jedes Zeichen (buchstabengetreu) zwischen der ersten öffnenden und der letzten schließenden eckigen Klammer
+(_) Sytaxfehler: zumindest einige der Zeichen dürfen innerhalb eckiger Klammern so nicht verwendet werden
+(_) Jedes Zeichen - außer "[", "^" und "-" (müssen entwertet werden)
+(_) Jedes Zeichen - außer "^" und "-" (müssen entwertet werden)
+
+Bei den Regulären Ausdrücken nach POSIX verlieren Metazeichen innerhalb eckiger Klammern (bracket expression) ihre besondere Bedeutung.  Die einzigen besonderen Zeichen zwischen eckigen Klammern sind "^", "-" und "]".  Diese müssen gegebenenfalls durch findige Platzierung ("clever placement") entwertet werden.  Zum Beispiel findet /[]^-]/ das Zeichen "]", "^" oder "-".
+
+#RE-7
+
+Was macht man (bei POSIX REs) um genau eines der Zeichen "^", "-" oder "]" zu finden?
+
+[x] `/\^|-|]/`
+[x] `/[]^-]/`
+[_] `/[\^\-\]]/`
+
+Innerhalb von eckigen Klammern (bracket expression) haben die üblichen Metazeichen keine besondere Bedeutung.  Damit leitet der Backslash ("\") hier auch keine Escape-Sequenz ein, er hat keine entwertende Wirkung.  Die besonderen Zeichen "^", "-" und "]" müssen durch findige Platzierung entwertet werden - oder durch Alternativen ("|") ausgedrückt werden.
+
+#RE-8
+
+Schreiben Sie einen einfachen Regulären Ausdruck, um TODO-, FIXME- und XXX-Kommentare im Quellcode zu finden.  Solche Kommentare sehen z. B. so aus: // TODO exception abfangen
+
+___ /\/\/.*\(TODO\|FIXME\|XXX\)/
+
+Ein einfacher Regulärer Ausdruck für diesen Zweck wäre `// (TODO|FIXME|XXX)`
+
+#RE-9
+
+Was bewirkt folgender Befehl: `grep -rnE 'RE' .`
+
+[x] Im aktuellen Verzeichnis (`.`) werden rekursiv (`-r`) Dateien durchsucht.
+[_] Dateien werden nach dem nach dem Regulären Ausdruck `.` durchsucht.
+[x] Bei jedem Fund wird die Zeilennummer mitangezeigt (`-n`).
+[x] Der Reguläre Ausdruck `RE` wird als Extended Regular Expression (`-E`) interpretiert.
+[_] Die Ausgabe des Befehls ist die Anzahl der gefundenen Zeilen (`-n`)
+
+Der letzte Parameter des Aufrufs von grep ist der Dateiname.  Daher ist die die Antwort falsch, die sagt dass nach dem Regulären Ausdruck `.` gesucht wird.  Die Option `-n, --line-number` sorgt dafür, dass die Zeilenzahl zu jedem Fund mitangezeigt wird.  Die Option `-c, --count` zeigt statt der normalen Ausgabe die Anzahl der gefundenen Zeilen an.
+
+#RE-10
+
+Sie wollen alle C-Makros (#xxx) finden, die *nicht* der Konvention folgen, wonach Makros linksbündig (am Zeilenanfang) stehen.
+grep -rn '[[:space:]]+#[_[:alpha:]][_[:alnum:]]*' .
+recursive in current dir, with line numbers, search for one or more space followed by '#' and an identifier
+
+#RE-11
+
+Wie viele der folgenden Dateien findet der Reguläre Ausdruck `/.c/`?
+
+* .config
+* main.c
+* main.h
+* module.cpp
+* cassert
+* ascii.txt
+
+___ /4/
+
+Der Punkt steht für genau ein beliebiges Zeichen.  Daher findet der Ausdruck alle Dateien, die im Namen ein kleines C haben, das aber nicht am Anfang steht.
