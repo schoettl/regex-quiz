@@ -7,7 +7,6 @@ Wofür stehen die Abkürzungen BRE und ERE?
 [_] Expandable Regular Expressions
 [x] POSIX Basic Regular Expressions
 
-
 Basic Regular Expressions (BRE) und Extended Regular Expressions (ERE) sind im POSIX-Standard beschrieben und werden von Tools wie grep und vi implementiert.
 http://www.regular-expressions.info/posix.html
 Hint: Beide sind im POSIX-Standard definiert.
