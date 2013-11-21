@@ -111,3 +111,33 @@ Wie viele der folgenden Dateien findet der Reguläre Ausdruck `/.c/`?
 ___ /4/
 
 Der Punkt steht für genau ein beliebiges Zeichen.  Daher findet der Ausdruck alle Dateien, die im Namen ein kleines C haben, das aber nicht am Anfang steht.
+
+#RE-12
+
+Wie viele der folgenden Dateien werden mit dem Regulra;rem Ausdruck `/.*/` gefunden.
+
+* .gitignore
+* README
+* COPYING
+* manual.pdf
+
+___ /4/
+
+Der Punkt steht fu;r ein beliebiges Zeichen.  Der Stern bedeutet 'beliebig oft'.  Daher findet der Ausdruck alle Dateien.
+
+#RE-13
+
+In einem Style Guide fu;r JavaScript ist festgelegt, dass alle Bezeichner mit Kleinbuchstaben beginnen.  Wenn die Bezeichner aus mehreren Wo;rtern zusammengesetzt sind,mu;ssen die Wo;rter ohne Leerzeichen, mit Gros;buchstaben beginnend, zusammengeschrieben werden.
+
+TODO
+
+#RE-14
+
+Mit welchem der folgeden Regula;ren Ausdru;cken finden Sie unter UNIX versteckte Dateien, die mit `ls -A` aufgelistet sind.
+
+(_) `.[[:alnum:]]*`
+(x) `\..*`
+(_) `\.*`
+(_) `.*`
+
+Versteckte Dateien beginnen mit einem Punkt.  Das Metazeichen 'Punkt' steht bei Regula;ren Ausdru;cken fu;r ein beliebiges Zeichen.  Deshalb muss es mit dem Backslash entwertet werden. Mit dem folgenden `.*` werden die u;brigen Zeichen im Dateinamen konsumiert. 
