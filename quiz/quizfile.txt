@@ -13,18 +13,19 @@ Hint: Beide sind im POSIX-Standard definiert.
 
 #RE-2
 
-Sie wollen nur Dateien mit der Endung ".h" des aktuellen Verzeichnisses anzeigen.  Welche Befehle koennen Sie verwenden?
+Sie wollen nur Dateien mit der Endung ".h" des aktuellen Verzeichnisses anzeigen.  Welche Befehle ko;nnen Sie verwenden?
 
 [_] `ls *.h`
 [_] `ls | grep '*.h'`
 [x] `ls | grep "\.h$"`
 [_] `ls | grep *.h`
 
-Genau genommen funktioniert nur der Befehl `ls | grep "\.h$"`
+Genau genommen funktioniert nur der Befehl `ls | grep "\.h$"`.  Das Problem bei `ls *.h` ist, dass es auch den Verzeichnisinhalt eines Verzeichnisses "directory.h" anzeigt.
 
 #RE-3
 
-Was trifft auf den Regulären Ausdruck `/*/` zu?
+Was trifft auf den Regulären Ausdruck `*` zu?
+
 (_) Ungültig: es muss ein Zeichen vor dem Stern stehen
 (_) Gültig: der Stern heißt hier "beliebiger String"
 (x) Gültig: der Stern hat hier keine besondere Bedeutung - mit dem Ausdruck findet man einfach Sterne
@@ -37,8 +38,9 @@ Wie verwendet man die POSIX Character Ranges?  Markieren Sie, wo sie richtig ver
 [x] `[_[:alpha:]][[:alnum:]]*`
 [_] `[:alpha:]*`
 [_] `0x[:xdigit:]+`
+[x] `=[[:alpha:][:digit:]];`
 
-Richtig sind ... und ....  Beispielsweise entspricht die vordefinierte Character Range <code>[:alpha:]</code> <code>A-Za-z</code>, daher muss sie nochmal in eckige Klammern eingeschlossen werden: <code>[[:alpha:]]</code>.  Dadurch sind auch mehrere Ranges kombinierbar: <code>[[:alpha][:space:]]</code> (nur Buchstaben und Leerzeichen)
+Die vordefinierte Character Range `[:alpha:]` entspricht ungefähr `A-Za-z`, daher muss sie nochmal in eckige Klammern eingeschlossen werden: `[[:alpha:]]`.  Somit sind auch mehrere Ranges kombinierbar: `[[:alpha][:space:]]` (findet Buchstaben und Leerzeichen)
 
 #RE-5
 
@@ -52,26 +54,26 @@ Pearl Compatible Regular Expressions (PCRE) ist eine Programmbibliothek für Reg
 
 #RE-6
 
-Welche Zeichen findet der Reguläre Ausdruck `/[{,}().\+*?[$^-]/` (nach POSIX)?  Oder ist das ein Syntaxfehler?
+Welche Zeichen findet der Reguläre Ausdruck `[{,}().\+*?[$^-]` (nach POSIX)?  Oder ist das ein Syntaxfehler?
 
 (x) Jedes Zeichen (buchstabengetreu) zwischen der ersten öffnenden und der letzten schließenden eckigen Klammer
-(_) Sytaxfehler: zumindest einige der Zeichen dürfen innerhalb eckiger Klammern so nicht verwendet werden
-(_) Jedes Zeichen - außer "[", "^" und "-" (müssen entwertet werden)
-(_) Jedes Zeichen - außer "^" und "-" (müssen entwertet werden)
+(_) Syntaxfehler: die meisten der Zeichen dürfen innerhalb eckiger Klammern so nicht verwendet werden
+(_) Syntaxfehler: "[", "^" und "-" müssen mit Backslash entwertet werden
+(_) Syntaxfehler: "^" und "-" müssen mit Backslash entwertet werden
 
-Bei den Regulären Ausdrücken nach POSIX verlieren Metazeichen innerhalb eckiger Klammern (bracket expression) ihre besondere Bedeutung.  Die einzigen besonderen Zeichen zwischen eckigen Klammern sind "^", "-" und "]".  Diese müssen gegebenenfalls durch findige Platzierung ("clever placement") entwertet werden.  Zum Beispiel findet /[]^-]/ das Zeichen "]", "^" oder "-".
+Bei den Regulären Ausdrücken nach POSIX verlieren Metazeichen innerhalb eckiger Klammern (bracket expression) ihre besondere Bedeutung.  Die einzigen besonderen Zeichen zwischen eckigen Klammern sind "^", "-" und "]".  Diese müssen gegebenenfalls durch findige Platzierung ("clever placement") entwertet werden.  Zum Beispiel findet `[]^-]` das Zeichen "]", "^" oder "-".  Eine Entwertung mit dem Escape Character Backslash ist nach POSIX nicht hier nicht möglich, denn auch der Backslash ist innerhalb eckiger Klammern nur ein Backslash.
 
 #RE-7
 
 Was macht man (bei POSIX REs) um genau eines der Zeichen "^", "-" oder "]" zu finden?
 
-[x] `/\^|-|]/`
-[x] `/[]^-]/`
-[_] `/[\^\-\]]/`
+[x] `\^|-|]`
+[x] `[]^-]`
+[_] `[\^\-\]]`
 
 Innerhalb von eckigen Klammern (bracket expression) haben die üblichen Metazeichen keine besondere Bedeutung.  Damit leitet der Backslash ("\") hier auch keine Escape-Sequenz ein, er hat keine entwertende Wirkung.  Die besonderen Zeichen "^", "-" und "]" müssen durch findige Platzierung entwertet werden - oder durch Alternativen ("|") ausgedrückt werden.
 
-#RE-8
+#RE-8 FIXME
 
 Schreiben Sie einen einfachen Regulären Ausdruck, um TODO-, FIXME- und XXX-Kommentare im Quellcode zu finden.  Solche Kommentare sehen z. B. so aus: // TODO exception abfangen
 
@@ -93,13 +95,19 @@ Der letzte Parameter des Aufrufs von grep ist der Dateiname.  Daher ist die die 
 
 #RE-10
 
-Sie wollen alle C-Makros (#xxx) finden, die *nicht* der Konvention folgen, wonach Makros linksbündig (am Zeilenanfang) stehen.
-grep -rn '[[:space:]]+#[_[:alpha:]][_[:alnum:]]*' .
-recursive in current dir, with line numbers, search for one or more space followed by '#' and an identifier
+Sie wollen alle C-Makros (z.B. `#define`) finden, die *nicht* der Konvention folgen, wonach Makros linksbündig (am Zeilenanfang) stehen.  Erledigt folgender Befehl diese Aufgabe?
+
+    grep -rn '^[[:space:]]+#[_[:alpha:]][_[:alnum:]]*' .
+
+Hinweise zu den Optionen: `-r` und `.` -- recursive in `$(pwd)`, `-n` -- with line numbers
+
+0/1 1
+
+Jep, der Aufruf ist funktioniert und zeigt alle Zeilen an, in denen Makros nicht am Zeilenanfang stehen.  
 
 #RE-11
 
-Wie viele der folgenden Dateien findet der Reguläre Ausdruck `/.c/`?
+Wie viele der folgenden Dateien findet der Reguläre Ausdruck `.c`?
 
 * .config
 * main.c
@@ -114,7 +122,7 @@ Der Punkt steht für genau ein beliebiges Zeichen.  Daher findet der Ausdruck al
 
 #RE-12
 
-Wie viele der folgenden Dateien werden mit dem Regulra;rem Ausdruck `/.*/` gefunden.
+Wie viele der folgenden Dateien werden mit dem Regulra;rem Ausdruck `.*` gefunden.
 
 * .gitignore
 * README
@@ -123,13 +131,21 @@ Wie viele der folgenden Dateien werden mit dem Regulra;rem Ausdruck `/.*/` gefun
 
 ___ /4/
 
-Der Punkt steht fu;r ein beliebiges Zeichen.  Der Stern bedeutet 'beliebig oft'.  Daher findet der Ausdruck alle Dateien.
+Der Punkt steht fu;r ein beliebiges Zeichen.  Der Stern bedeutet "beliebig oft".  Daher findet der Ausdruck alle Dateien.
 
 #RE-13
 
-In einem Style Guide fu;r JavaScript ist festgelegt, dass alle Bezeichner mit Kleinbuchstaben beginnen.  Wenn die Bezeichner aus mehreren Wo;rtern zusammengesetzt sind,mu;ssen die Wo;rter ohne Leerzeichen, mit Gros;buchstaben beginnend, zusammengeschrieben werden.
+In den offiziellen Naming Conventions der Programmiersprache Java ist festgelegt, dass alle Konstanten rein aus Großbuchstaben, Ziffern und Unterstrichen bestehen, wobei die Unterstriche Wörter trennen.  In Java beginnen Konstanten zudem nicht mit einem Unterstrich.  Welcher der folgenden Regulären Ausdrücken (PCRE-Syntax) findet solche Konstanten?
 
-TODO
+(x) `\b[A-Z\d]+(_[A-Z\d]+)*\b`
+(_) `\b([A-Z[:digit:]]+_)+\b`
+(_) `\b[A-Z\d]*(_[A-Z\d]*)*\b`
+
+`\b` steht für "word boundary" und bedeutet, dass der dazwischenliegende Ausdruck als eigenes Wort vorkommen muss.  Ein Wort wird u.a. durch Leerzeichen und Sonderzeichen abgegrenzt.
+
+`\d` steht bei PCRE und den meisten modernen RE-Dialekten für "digit", also eine Ziffer von 0 bis 9.
+
+`+` erfordert im Gegensatz zu `*` mindestens ein Vorkommen des vorhergehenden Zeichens, und das ist hier wichtig.
 
 #RE-14
 
@@ -140,4 +156,70 @@ Mit welchem der folgeden Regula;ren Ausdru;cken finden Sie unter UNIX versteckte
 (_) `\.*`
 (_) `.*`
 
-Versteckte Dateien beginnen mit einem Punkt.  Das Metazeichen 'Punkt' steht bei Regula;ren Ausdru;cken fu;r ein beliebiges Zeichen.  Deshalb muss es mit dem Backslash entwertet werden. Mit dem folgenden `.*` werden die u;brigen Zeichen im Dateinamen konsumiert. 
+Versteckte Dateien beginnen mit einem Punkt.  Das Metazeichen "Punkt" steht bei Regula;ren Ausdru;cken fu;r ein beliebiges Zeichen.  Deshalb muss es mit dem Backslash entwertet werden.  Mit dem folgenden `.*` werden die u;brigen Zeichen im Dateinamen konsumiert.
+
+#RE-15
+
+Die offiziellen Naming Conventions der Programmiersprache Java fordern, dass bei Akronymen immer nur der erste Buchstabe groß geschrieben wird, z.B. `getUrl` statt `getURL`.  Schreiben Sie einen PCRE-Ausdruck, der
+
+* möglichst einfach
+* Verstöße in Methodennamen findet. (Methodennamen beginnen mit einem Kleinbuchstaben.)
+* Verwenden Sie am Anfang und Ende Ihres Ausdrucks `\b` ("word boundary").
+* Gehen Sie davon aus, dass die Methodennamen nur aus `[a-zA-Z]` bestehen.
+
+___ /\\b\(\[a-z\]\+\[A-Z\]\?\)\+\\b/
+
+Natürlich gibt es hier viele Lösungen.  Die knappeste die alle obigen Bedingungen erfüllt dürfte wohl diese sein: `\b([a-z]+[A-Z]?)+\b`
+
+Ob Ihre Lösung auch funktioniert können Sie z.B. hier testen: https://www.debuggex.com/
+
+#RE-16
+
+Schreiben Sie einen Regulären Ausdruck, der die Maus in folgendem Satz findet: "Wo ist die Maus?"
+
+___ /Maus/
+
+Um ein Wort zu finden, die keine RE-Metazeichen enthält, ergibt sich ein ganz einfacher Regulärer Ausdruck: `Maus`
+
+#RE-17
+
+Sie wollen in einer Quelldatei unnötige Leerzeichen am Zeilenende entfernen.  (Achtung, nicht bei Markdown anwenden, da hier zwei Leerzeichen am Zeilende einen Zeilenumbruch darstellen.)
+
+Sie verwenden dazu folgenden Aufruf: `sed -i 's/RE//' main.c`
+
+Dabei steht `-i` für "in-place" (es wird direkt die Datei geändert), `'s/...` für "substitute" und `RE` für einen Regulären Ausdruck, der Leerzeichen am Zeilenende findet.  Wie muss der Ausdruck für `RE` aussehen?
+
+___ /^\[\[:space:]]\+\$$/
+
+Die einfachste Möglichkeit (mit POSIX RE) ist wohl: `[[:space:]]+$`
+
+Eingesetzt in den Aufruf oben werden dadurch alle Leerzeichen am Zeilenende durch den Leeren String ersetzt.
+
+#RE-18
+
+Sie wollen die "Source Lines Of Code" (SLOC) Ihres Programms wissen -- allerdings sollen Leerzeilen *nicht* mitzählen.  Sie verwenden den folgenden Aufruf:
+
+    cat main.c | grep -v 'RE' | wc -l
+
+Beachten Sie die Option `-v` ("inverse").  grep lässt damit nur Zeilen durch, auf die der Reguläre Ausdruck `RE` *nicht* passt.  Wie muss der `RE` aussehen?
+
+___ /^\^\[\[:space:]]\*\$$/
+
+Die einfachste Möglichkeit (mit POSIX RE) ist wohl: `^[[:space:]]*$`.  Damit werden Leerzeilen gefunden, die durch die Option `-v` in grep herausgefiltert, also *nicht* durchgereicht werden.
+
+#RE-19
+
+Sie mussten mit englischem Tastaturlayout einen deutschen Text schreiben :/  Für die Umlaute (äöü...) haben Sie am Anfang noch HTML-Entities verwendet (`&auml;` usw.), später dann `ae;` und gegen Ende nur noch `a;` -- mit dem Hintergedanken, diese Zeichen später einfach ersetzen zu können.
+
+Sie verwenden folgenden Aufruf um in der Datei erst einmal alle "ä" richtigzustellen: `sed 's/RE/ä/' ba.tex`
+
+Also welchen Regulären Ausdruck verwenden Sie am ehesten für `RE`?
+
+(x) `(&auml;|ae;|a;)`
+(_) `[&auml;|ae;|a;]`
+
+Zur Wiederholung: Eckige Klammern sind nur für *einzelne* Zeichen gedacht.
+
+Einwände sind berechtigt:  Wenn der Text z.B. die Quellcodezeile `int i = a;` enthält führt die Ersetzung zu unerwünschten Ergebnissen.  Eine bessere Möglichkeit:
+
+Umlaute -- abgesehen von "ß" -- kommen normalerweise nicht als letzter Buchstabe eines Wortes vor.  Der Reguläre Ausdruck `(&auml;|ae;|a;)([[:alpha:]])` würde also nur die Umlaute *in* einem Wort finden.  Das gibt zunächst beim Ersetzen Probleme, denn der folgende Buchstabe verschwindet dann auch.  Dafür gibt es aber die Möglichkeit der sich im "replacement" mit `\2` auf die zweite, durch runde Klammern definierten Gruppe zu beziehen.  Siehe `man sed`.
