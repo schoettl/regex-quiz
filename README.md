@@ -1,4 +1,5 @@
 # Aufgabenstellung
+
 Ziel ist, Reguläre Ausdrücke zu lehren   
 a) auch Abgrenzung zu shell path expansion  
 b) auch die verschiedenen Dialekte (basic BRE, extended ERE, perl PCRE)  
@@ -8,6 +9,7 @@ Wichtig ist, gute Beispiele zum Demonstrieren (für mich) und üben (für Studen
 zu haben, Beispiele, die lebensnah (für Stud. der E-Technik) sind.
 
 ## Umsetzung
+
 Als Methode und Medien könnte man sich vorstellen:
 
 * Demo live auf der Kommandozeile (mit grep oder im vim)
@@ -35,7 +37,7 @@ Als Methode und Medien könnte man sich vorstellen:
 * was ist mit "und" bzw. "oder" bei matching...
 
 
-[2]  Quizz/Tests
+[2]  Quizz/Tests  
 hier kann ich mir vorstellen:
 
 * multiple Choice-Aufgaben (man muss die richtige Aussage
@@ -43,14 +45,14 @@ hier kann ich mir vorstellen:
 * wahr/falsch: es stehen behauptungen da...
 * numerische Kurzantwort: "Wie viele...", "wie oft..."
 
-##Warnung
-Im Netzt gibt es massig Tutorials, die aber alle 
+## Warnung
+
+Im Netz gibt es massig Tutorials, die aber alle 
 nicht wirklich für unseren Einsatz geeignet sind. Wohl aber
 können sie als Quelle für unser Vorhaben dienen.
 
-##Anregung
+## Anregung
+
 Vielleicht findet sich auf youtube der ein oder andere geeignete
 Film - nicht länger als 15 Minuten, sind 5 schon kritisch,
 und vor allem: nicht fade, langweilig, zäh, stümperhaft, lieblos.
-
-
