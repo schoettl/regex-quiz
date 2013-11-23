@@ -30,6 +30,8 @@ Was trifft auf den Regulären Ausdruck `*` zu?
 (_) Gültig: der Stern heißt hier "beliebiger String"
 (x) Gültig: der Stern hat hier keine besondere Bedeutung - mit dem Ausdruck findet man einfach Sterne
 
+Im Allgemeinen bedeutet das Metazeichen "Stern", dass das vorhergehende Zeichen beliebig oft vorkommen darf.  In unserem Fall gibt es aber kein vorhergehendes Zeichen gibt.  Dann zählt bei vielen POSIX-RE-Implementierungen der Stern nicht als Metazeichen, sondern als ganz normales Zeichen.
+
 #RE-4
 
 Wie verwendet man die POSIX Character Ranges?  Markieren Sie, wo sie richtig verwendet wurden.
@@ -222,4 +224,10 @@ Zur Wiederholung: Eckige Klammern sind nur für *einzelne* Zeichen gedacht.
 
 Einwände sind berechtigt:  Wenn der Text z.B. die Quellcodezeile `int i = a;` enthält führt die Ersetzung zu unerwünschten Ergebnissen.  Eine bessere Möglichkeit:
 
-Umlaute -- abgesehen von "ß" -- kommen normalerweise nicht als letzter Buchstabe eines Wortes vor.  Der Reguläre Ausdruck `(&auml;|ae;|a;)([[:alpha:]])` würde also nur die Umlaute *in* einem Wort finden.  Das gibt zunächst beim Ersetzen Probleme, denn der folgende Buchstabe verschwindet dann auch.  Dafür gibt es aber die Möglichkeit der sich im "replacement" mit `\2` auf die zweite, durch runde Klammern definierten Gruppe zu beziehen.  Siehe `man sed`.
+Umlaute -- abgesehen von "ß" -- kommen normalerweise nicht als letzter Buchstabe eines Wortes vor.  Der Reguläre Ausdruck `(&auml;|ae;|a;)([[:alpha:]])` würde also nur die Umlaute *in* einem Wort finden.  Das gibt zunächst beim Ersetzen Probleme, denn der folgende Buchstabe verschwindet dann auch.  Dafür gibt es aber die Möglichkeit der sich im "replacement" mit `\2` auf die zweite, durch runde Klammern definierten Gruppe zu beziehen ("backreferences").  Siehe `man sed`.
+
+#RE-20
+
+grep -E
+-F
+-P
