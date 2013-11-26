@@ -7,7 +7,7 @@
 # param1: quizfile
 # param2: question number (>= 1)
 function outputQuestionID() {
-	grep ^# "$FILE" | awk "NR==$I"
+	grep '^#' "$1" | awk "NR==$2"
 }
 
 # Outputs a full question from the quizfile
