@@ -1,8 +1,8 @@
 #!/bin/bash
-# quiz.sh [ first_question ] quizfile
+# quiz.sh [ first_question_number ] quizfile
 #
 # Jakob Schöttl
-# 
+#
 
 source quizlib.sh
 
@@ -19,12 +19,15 @@ echo "ab Frage Nummer $I"
 
 while true; do
 	ID=$(outputQuestionID "$FILE" "$I")
+	if [ -z $ID ]; then
+		break
+	fi
 	echo ID: $ID
 	TYPE=$(outputQuestionType "$FILE" "$ID")
 	echo TYPE: $TYPE
 	echo ---------------
 	outputQuestionOnly "$FILE" "$ID"
-	case "$TYPE" in
+	case $TYPE in
 		"[x]") outputNumberedOptionsWithoutAnswers "$FILE" "$ID"
 		       echo -e "\nBitte geben Sie die Nummern der richtigen Antworten ein (space-separated):"
 		       ;;
@@ -36,13 +39,10 @@ while true; do
 		"___") echo "Bitte geben Sie Ihre Antwort ein:"
 		       ;;
 	esac
+
 	read ANS
 	echo "$ID $ANS" >> answers.txt
-	
-	break
-	if [ $? -ne 0 ]; then
-		break
-	fi
+
 	clear
 	(( I++ ))
 done

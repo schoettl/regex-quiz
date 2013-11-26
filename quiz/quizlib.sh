@@ -10,6 +10,14 @@ function outputQuestionID() {
 	grep '^#' "$1" | awk "NR==$2"
 }
 
+# Exit with 0 if specified question exists, otherwise 1
+# param1: quizfile
+# param2: question id
+function existsQuestion() {
+	grep "^$2" "$1" > /dev/null
+	return $?
+}
+
 # Outputs a full question from the quizfile
 # param1: quizfile
 # param2: question id
