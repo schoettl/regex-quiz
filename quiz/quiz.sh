@@ -4,21 +4,7 @@
 # 
 # 
 
-# param1: quizfile
-# param2: question id
-function outputFullQuestion() {
-	cat "$1" | awk '/^#/{f=0};/^'"$2"'[[:space:]]*$/||f{f=1;print}'
-	# [:space:] ist ein Workaround, wahrscheinlich nötig wegen CRLF
-}
-
-# param1: quizfile
-# param2: question id
-function outputQuestionWithoutAnswer() {
-	outputFullQuestion "$1" "$2" | \
-	sed 's/^\[x]/[_]/' | sed 's/^(x)/(_)/' | \
-	sed 's/^\(____*\).*/\1/' | sed 's/0\/1.*/0\/1/' | \
-	awk '/^(\[_]|\(_\)|___+|0\/1)/{f=1};f&&/^[[:space:]]*$/{g=1};!g{print}'
-}
+source quizlib.sh
 
 if [ $# -gt 1 ]; then
 	I="$1"
@@ -34,7 +20,25 @@ echo "ab Frage Nummer $I"
 while true; do
 	ID=$(grep ^# "$FILE" | awk "NR==$I")
 	echo ID: $ID
-	outputQuestionWithoutAnswer "$FILE" "$ID"
+	TYPE=$(outputQuestionType "$FILE" "$ID")
+	echo TYPE: $TYPE
+	echo ---------------
+	outputQuestionOnly "$FILE" "$ID"
+	case "$TYPE" in
+		"[x]") outputNumberedOptionsWithoutAnswers "$FILE" "$ID"
+		       echo -e "\nBitte geben Sie die Nummern der richtigen Antworten ein (space-separated):"
+		       ;;
+		"(x)") outputNumberedOptionsWithoutAnswers "$FILE" "$ID"
+		       echo -e "\nBitte geben Sie die Nummer der richtigen Antwort ein:"
+		       ;;
+		"0/1") echo "Bitte geben Sie 1 oder 0 ein (wahr/falsch):"
+		       ;;
+		"___") echo "Bitte geben Sie Ihre Antwort ein:"
+		       ;;
+	esac
+	read ANS
+	echo "$ID $ANS" >> answers.txt
+	
 	break
 	if [ $? -ne 0 ]; then
 		break
