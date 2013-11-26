@@ -1,7 +1,7 @@
 #!/bin/bash
-# 
-# Jakob Schoettl
-# 
+# quiz.sh [ first_question ] quizfile
+#
+# Jakob Schöttl
 # 
 
 source quizlib.sh
@@ -18,7 +18,7 @@ echo "Quiz: $FILE"
 echo "ab Frage Nummer $I"
 
 while true; do
-	ID=$(grep ^# "$FILE" | awk "NR==$I")
+	ID=$(outputQuestionID "$FILE" "$I")
 	echo ID: $ID
 	TYPE=$(outputQuestionType "$FILE" "$ID")
 	echo TYPE: $TYPE

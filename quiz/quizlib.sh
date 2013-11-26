@@ -1,7 +1,14 @@
 # 
-# Jakob Schoettl
+# Jakob Schöttl
 # 
 # 
+
+# Outputs the ID of the specified question
+# param1: quizfile
+# param2: question number (>= 1)
+function outputQuestionID() {
+	grep ^# "$FILE" | awk "NR==$I"
+}
 
 # Outputs a full question from the quizfile
 # param1: quizfile
