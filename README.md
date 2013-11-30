@@ -42,7 +42,7 @@ hier kann ich mir vorstellen:
 
 * multiple Choice-Aufgaben (man muss die richtige Aussage
   oder korrekte Regex unter 3-5 gegebenen suchen, ankreuzen)
-* wahr/falsch: es stehen behauptungen da...
+* wahr/falsch: es stehen Behauptungen da...
 * numerische Kurzantwort: "Wie viele...", "wie oft..."
 
 ## Warnung
@@ -53,6 +53,6 @@ können sie als Quelle für unser Vorhaben dienen.
 
 ## Anregung
 
-Vielleicht findet sich auf youtube der ein oder andere geeignete
+Vielleicht findet sich auf YouTube der ein oder andere geeignete
 Film - nicht länger als 15 Minuten, sind 5 schon kritisch,
 und vor allem: nicht fade, langweilig, zäh, stümperhaft, lieblos.
