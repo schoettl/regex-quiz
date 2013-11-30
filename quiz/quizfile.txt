@@ -37,10 +37,10 @@ Im Allgemeinen bedeutet das Metazeichen "Stern", dass das vorhergehende Zeichen 
 Wie verwendet man die POSIX Character Ranges?  Markieren Sie, wo sie richtig verwendet wurden.
 
 [x] `[[:digit:]]+`
-[x] `[_[:alpha:]][[:alnum:]]*`
-[_] `[:alpha:]*`
+[x] `[_[:alpha:]][_[:alnum:]]*`
+[_] `"[:alpha:]*"`
 [_] `0x[:xdigit:]+`
-[x] `=[[:alpha:][:digit:]];`
+[x] `[[:alpha:][:digit:]]`
 
 Die vordefinierte Character Range `[:alpha:]` entspricht ungefähr `A-Za-z`, daher muss sie nochmal in eckige Klammern eingeschlossen werden: `[[:alpha:]]`.  Somit sind auch mehrere Ranges kombinierbar: `[[:alpha][:space:]]` (findet Buchstaben und Leerzeichen)
 
