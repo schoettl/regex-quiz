@@ -63,6 +63,29 @@ function outputOptions() {
 	     /^\([_x]\)/'
 }
 
+# Outputs the answer if type is one of "0/1", "___"
+# "0" or "1" for type "0/1", RE for type "___"
+# param1: quizfile
+# param2: question id
+function outputAnswer() {
+	outputFullQuestion "$1" "$2" | \
+	awk '/^0\/1/ {print $2; exit}
+	     /^___/ {sub(/^___[[:space:]]+/, ""); $0=gensub(/^\/(.*)\//, "\\1", "g"); gsub(/\\\//, "/"); print; exit}'
+}
+
+# Outputs both user and correct answer if type is one of "[x]", "(x)"
+# param1: quizfile
+# param2: question id
+# param3: question type
+# param4: user answer
+function outputOptionsAnswered() {
+	outputOptions "$1" "$2" | \
+	awk -v type="$3" -v ans="$4" \
+		'function inArray(arr, val) {for(v in arr) if(val == v) return 1; return 0}
+		 BEGIN {l=substr(type,1,1); r=substr(type,3,1); split(ans,ansarr)}
+		 {i++; if(inArray(ansarr,i)) check="x"; else check="_"; print " " l check r " " $0}'
+}
+
 # Outputs the options clearing the answer crosses ("x")
 # param1: quizfile
 # param2: question id
