@@ -28,10 +28,10 @@ while true; do
 	echo ---------------
 	outputQuestionOnly "$FILE" "$ID"
 	case $TYPE in
-		"[x]") outputNumberedOptionsWithoutAnswers "$FILE" "$ID"
+		"[x]") outputOptionsWithoutAnswers "$FILE" "$ID" | nl -w2 -s' '
 		       echo -e "\nBitte geben Sie die Nummern der richtigen Antworten ein (space-separated):"
 		       ;;
-		"(x)") outputNumberedOptionsWithoutAnswers "$FILE" "$ID"
+		"(x)") outputOptionsWithoutAnswers "$FILE" "$ID" | nl -w2 -s' '
 		       echo -e "\nBitte geben Sie die Nummer der richtigen Antwort ein:"
 		       ;;
 		"0/1") echo "Bitte geben Sie 1 oder 0 ein (wahr/falsch):"

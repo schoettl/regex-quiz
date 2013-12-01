@@ -10,29 +10,12 @@ function outputQuestionID() {
 	grep '^#' "$1" | awk "NR==$2"
 }
 
-# Exit with 0 if specified question exists, otherwise 1
-# param1: quizfile
-# param2: question id
-function existsQuestion() {
-	grep "^$2" "$1" > /dev/null
-	return $?
-}
-
 # Outputs a full question from the quizfile
 # param1: quizfile
 # param2: question id
 function outputFullQuestion() {
 	cat "$1" | awk '/^#/{f=0};/^'"$2"'[[:space:]]*$/||f{f=1;print}'
 	# [:space:] ist ein Workaround, wahrscheinlich nötig wegen CRLF
-}
-
-# param1: quizfile
-# param2: question id
-function outputQuestionWithoutAnswer() {
-	outputFullQuestion "$1" "$2" | \
-	sed 's/^\[x]/[_]/' | sed 's/^(x)/(_)/' | \
-	sed 's/^\(____*\).*/\1/' | sed 's/0\/1.*/0\/1/' | \
-	awk '/^(\[_]|\(_\)|___|0\/1)/{f=1};f&&/^[[:space:]]*$/{g=1};!g{print}'
 }
 
 # Outputs the question without possible options
@@ -73,7 +56,7 @@ function outputAnswer() {
 	     /^___/ {sub(/^___[[:space:]]+/, ""); $0=gensub(/^\/(.*)\//, "\\1", "g"); gsub(/\\\//, "/"); print; exit}'
 }
 
-# Outputs both user and correct answer if type is one of "[x]", "(x)"
+# Outputs both user and correct answer for types of "[x]", "(x)"
 # param1: quizfile
 # param2: question id
 # param3: question type
@@ -81,9 +64,9 @@ function outputAnswer() {
 function outputOptionsAnswered() {
 	outputOptions "$1" "$2" | \
 	awk -v type="$3" -v ans="$4" \
-		'function inArray(arr, val) {for(v in arr) if(val == v) return 1; return 0}
+		'function inArray(arr, val) {for(k in arr) if(val == arr[k]) return 1; return 0}
 		 BEGIN {l=substr(type,1,1); r=substr(type,3,1); split(ans,ansarr)}
-		 {i++; if(inArray(ansarr,i)) check="x"; else check="_"; print " " l check r " " $0}'
+		 {i++; if(inArray(ansarr,i)) check="x"; else check="_"; print l check r " " $0}'
 }
 
 # Outputs the options clearing the answer crosses ("x")
@@ -92,18 +75,4 @@ function outputOptionsAnswered() {
 function outputOptionsWithoutAnswers() {
 	outputOptions "$1" "$2" | \
 	sed 's/^\[x]/[_]/' | sed 's/^(x)/(_)/'
-}
-
-# Outputs 
-# param1: quizfile
-# param2: question id
-function outputNumberedOptions() {
-	outputOptions "$1" "$2" | nl -w2 -s' '
-}
-
-# Outputs 
-# param1: quizfile
-# param2: question id
-function outputNumberedOptionsWithoutAnswers() {
-	outputOptionsWithoutAnswers "$1" "$2" | nl -w2 -s' '
 }
