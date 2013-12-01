@@ -75,7 +75,9 @@ Was macht man (bei POSIX REs) um genau eines der Zeichen "^", "-" oder "]" zu fi
 
 Innerhalb von eckigen Klammern (bracket expression) haben die üblichen Metazeichen keine besondere Bedeutung.  Damit leitet der Backslash ("\") hier auch keine Escape-Sequenz ein, er hat keine entwertende Wirkung.  Die besonderen Zeichen "^", "-" und "]" müssen durch findige Platzierung entwertet werden - oder durch Alternativen ("|") ausgedrückt werden.
 
-#RE-8 FIXME
+#RE-8
+
+FIXME
 
 Schreiben Sie einen einfachen Regulären Ausdruck, um TODO-, FIXME- und XXX-Kommentare im Quellcode zu finden.  Solche Kommentare sehen z. B. so aus: // TODO exception abfangen
 
