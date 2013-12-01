@@ -203,7 +203,7 @@ Sie wollen die "Source Lines Of Code" (SLOC) Ihres Programms wissen -- allerding
 
     cat main.c | grep -v 'RE' | wc -l
 
-Beachten Sie die Option `-v` ("inverse").  grep lässt damit nur Zeilen durch, auf die der Reguläre Ausdruck `RE` *nicht* passt.  Wie muss der `RE` aussehen?
+Beachten Sie die Option `-v` ("invert match").  grep lässt damit nur Zeilen durch, auf die der Reguläre Ausdruck `RE` *nicht* passt.  Wie muss der `RE` aussehen?
 
 ___ /^\^\[\[:space:]]\*\$$/
 
@@ -227,6 +227,28 @@ Einwände sind berechtigt:  Wenn der Text z.B. die Quellcodezeile `int i = a;` e
 Umlaute -- abgesehen von "ß" -- kommen normalerweise nicht als letzter Buchstabe eines Wortes vor.  Der Reguläre Ausdruck `(&auml;|ae;|a;)([[:alpha:]])` würde also nur die Umlaute *in* einem Wort finden.  Das gibt zunächst beim Ersetzen Probleme, denn der folgende Buchstabe verschwindet dann auch.  Dafür gibt es aber die Möglichkeit der sich im "replacement" mit `\2` auf die zweite, durch runde Klammern definierten Gruppe zu beziehen ("backreferences").  Siehe `man sed`.
 
 #RE-20
+
+Welche der folgenden Aufrufe von grep lassen nur Nicht-Leerzeilen durch?
+
+[_] `grep '.*'`
+[x] `grep -v '^$'`
+[x] `grep '.+'`
+
+`grep '.*'` lässt alle Zeilen durch, in denen null oder mehr beliebige Zeichen stehen.  Damit werden auch Leerzeilen durchgelassen.  Die anderen beiden Aufrufe funktionieren wie gefordert und verwerfen Leerzeilen.  Der Aufruf mit der Option `-v` (für "invert match") findet mit dem Regulären Ausdruck `^$` Leerzeilen, und lässt eben diese *nicht* durch.
+
+#RE-21
+
+`grep -P '^\s*#' script.sh` -- Welche grep-Option fehlt hier, wenn der Aufruf alle Kommentare im Shell-Skript *entfernen* soll?
+
+___ /-v|--invert-match/
+
+Mit dem obigen Aufruf werden Kommentarzeilen nicht entfernt, sondern im Gegenteil alle anderen Zeilen entfernt.  Um das Verhalten zu invertieren verwendet man die Option `-v`, `--invert-match`.
+
+Die Option `-P` bedeutet, dass der Reguläre Ausdruck als _P_erl Compatible Regular Expression (PCRE) interpretiert wird.  Bei PCRE bedeutet `\s` "whitespace character".
+
+Optionen, die nur aus einem Buchstaben bestehen lassen sich kombinieren.  Ein korrekter Aufruf wäre also: `grep -vP '^\s*#' script.sh`
+
+#RE-22
 
 grep -E
 -F
