@@ -26,6 +26,17 @@ function outputQuestionOnly() {
 	awk '/^(\[[_x]\]|\([_x]\)|___|0\/1)/{exit};{print}'
 }
 
+# Outputs the explanation (for the answer(s))
+# param1: quizfile
+# param2: question id
+function outputExplanation() {
+	outputFullQuestion "$1" "$2" | \
+	awk '/^(\[[_x]\]|\([_x]\)|___|0\/1)/ {f=1}
+	     /^[[:space:]]*$/ && f {f=0; g=1; next}
+	     g {print}'
+	# Options or answer, followed by blank line -> explanation comes next
+}
+
 # Outputs the type i.e. one of "[x]", "(x)", "0/1", "___"
 # param1: quizfile
 # param2: question id
