@@ -14,9 +14,16 @@ while read ID ANS; do
 	echo $ID
 	TYPE=$(outputQuestionType "$FILE" "$ID")
 	case "$TYPE" in
-		"[x]|(x)") outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS"
+		"[x]"|"(x)") echo "usr sol"
+				outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS"
+				outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
+				if grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})'; then
+					echo "Falsch"
+				else
+					echo "Richtig"
+				fi
 				;;
-		"0/1") echo "Antwort $ANS gegen 0/1 testen"
+		"0/1") echo "Ihre Antwort: $ANS"
 				if
 					echo $ANS | grep -F $(outputAnswer "$FILE" "$ID")
 				then
@@ -25,7 +32,7 @@ while read ID ANS; do
 					echo "Falsch"
 				fi
 				;;
-		"___") echo "Antwort $ANS gegen RE testen"
+		"___") echo "Ihre Antwort: $ANS"
 				if
 					echo $ANS | grep -E "'$(outputAnswer "$FILE" "$ID")'"
 				then
@@ -34,5 +41,12 @@ while read ID ANS; do
 					echo "Falsch"
 				fi
 				;;
+	esac
+	outputExplanation "$FILE" "$ID"
+
+	read -p "Weiter (Enter) oder Beenden (q)? " CMD < /dev/tty
+	case "$CMD" in
+		q) exit
+		;;
 	esac
 done
