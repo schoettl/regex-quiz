@@ -52,7 +52,7 @@ Bei Regulären Ausdrücken gibt es viele Dialekte.  Welcher der folgenden ist de
 (_) POSIX Extended Regular Expesssions (ERE)
 (x) Perl Compatible Regular Expressions (PCRE)
 
-Pearl Compatible Regular Expressions (PCRE) ist eine Programmbibliothek für Reguläre Ausdrücke.  Der implementierte Dialekt ist ziemlich kompatibel mit den Regulären Ausdrücken der Programmiersprache Perl und ist damit viel umfangreicher als der POSIX-Standard.
+Perl Compatible Regular Expressions (PCRE) ist eine Programmbibliothek für Reguläre Ausdrücke.  Der implementierte Dialekt ist ziemlich kompatibel mit den Regulären Ausdrücken der Programmiersprache Perl und ist damit viel umfangreicher als der POSIX-Standard.
 
 #RE-6
 
@@ -79,11 +79,11 @@ Innerhalb von eckigen Klammern (bracket expression) haben die üblichen Metazeic
 
 FIXME
 
-Schreiben Sie einen einfachen Regulären Ausdruck, um TODO-, FIXME- und XXX-Kommentare im Quellcode zu finden.  Solche Kommentare sehen z. B. so aus: // TODO exception abfangen
+Schreiben Sie einen einfachen Regulären Ausdruck, um TODO- und FIXME-Kommentare im Quellcode zu finden.  Solche Kommentare sehen z. B. so aus: // TODO exception abfangen
 
-___ /\/\/.*\(TODO\|FIXME\|XXX\)/
+___ /\/\/.*\(TODO\|FIXME\)/
 
-Ein einfacher Regulärer Ausdruck für diesen Zweck wäre `// (TODO|FIXME|XXX)`
+Ein einfacher Regulärer Ausdruck für diesen Zweck wäre `// (TODO|FIXME)`
 
 #RE-9
 
@@ -101,13 +101,13 @@ Der letzte Parameter des Aufrufs von grep ist der Dateiname.  Daher ist die die 
 
 Sie wollen alle C-Makros (z.B. `#define`) finden, die *nicht* der Konvention folgen, wonach Makros linksbündig (am Zeilenanfang) stehen.  Erledigt folgender Befehl diese Aufgabe?
 
-    grep -rn '^[[:space:]]+#[_[:alpha:]][_[:alnum:]]*' .
+    grep -rn '^[[:space:]]+#[_[:alpha:]]' .
 
 Hinweise zu den Optionen: `-r` und `.` -- recursive in `$(pwd)`, `-n` -- with line numbers
 
 0/1 1
 
-Jep, der Aufruf ist funktioniert und zeigt alle Zeilen an, in denen Makros nicht am Zeilenanfang stehen.  
+Jep, der Aufruf funktioniert und zeigt alle Zeilen an, in denen Makros nicht am Zeilenanfang stehen.  
 
 #RE-11
 
@@ -251,6 +251,22 @@ Die Option `-P` bedeutet, dass der Reguläre Ausdruck als _P_erl Compatible Regu
 Optionen, die nur aus einem Buchstaben bestehen lassen sich kombinieren.  Ein korrekter Aufruf wäre also: `grep -vP '^\s*#' script.sh`
 
 #RE-22
+
+Findet der Reguläre Ausdruck `abc` auch eine Zeile mit dem Text "abcd"?
+
+0/1 1
+
+Ja, auch die Zeile "abcd" wird gefunden, da der Reguläre Ausdruck nicht an Zeilenanfang und -ende verankert ist.  Wäre der Reguläre Ausdruck `^abc$` (verankert), würde er nur Zeilen mit dem Text "abc" finden.
+
+#RE-23
+
+Jemand versucht ein großes Logfile mit `grep -F '[2013-11-'` zu durchsuchen.  Wird grep wegen dem Parameter einen Fehler ausgeben?
+
+0/1 0
+
+Nein, der Aufruf von grep ist korrekt: Durch die Option `-F`, `--fixed-strings` (oder auch "fast") wird der Parameter *nicht* als Regulärer Ausdruck interpretiert, sondern als feste Zeichenkette, nach der gesucht wird.  Daher gibt es auch keinen Syntaxfehler wegen der öffnenden eckigen Klammer.
+
+#RE-24
 
 grep -E
 -F
