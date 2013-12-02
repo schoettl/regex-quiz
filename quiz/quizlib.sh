@@ -87,3 +87,20 @@ function outputOptionsWithoutAnswers() {
 	outputOptions "$1" "$2" | \
 	sed 's/^\[x]/[_]/' | sed 's/^(x)/(_)/'
 }
+
+# Return 1 for a wrong answer
+# param1: quizfile
+# param2: question id
+# param3: question type
+# param4: user answer
+function checkAnswer() {
+	case "$TYPE" in
+		"[x]"|"(x)") outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
+				grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})'
+				;;
+		"0/1") [ $ANS == $(outputAnswer "$FILE" "$ID") ]
+				;;
+		"___") [[ $ANS =~ $(outputAnswer "$FILE" "$ID") ]]
+				;;
+	esac
+}
