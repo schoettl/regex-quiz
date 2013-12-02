@@ -1,4 +1,4 @@
-[[:...:]] erlaubt in PCRE (grep -P ...) ?
-* without preceding char?
+[[:...:]] in PCRE (grep -P ...)? OK in GNU grep
+* without preceding char? OK in GNU grep, sed, awk, vim
 ___ /RE/ -> RE muss verankert werden mit ^RE$
-GNU AWK erforderlich!
+GNU awk erforderlich!
