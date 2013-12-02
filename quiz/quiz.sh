@@ -40,7 +40,7 @@ while true; do
 		       ;;
 	esac
 
-	read ANS
+	read -r ANS
 	echo "$ID $ANS" >> answers.txt
 
 	clear

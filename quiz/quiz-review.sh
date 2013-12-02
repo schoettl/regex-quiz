@@ -10,7 +10,7 @@ FILE="$1"
 ANSFILE="answers.txt"
 
 cat "$ANSFILE" | sort | uniq | \
-while read ID ANS; do
+while read -r ID ANS; do
 	echo $ID
 	TYPE=$(outputQuestionType "$FILE" "$ID")
 	case "$TYPE" in
@@ -40,7 +40,7 @@ while read ID ANS; do
 	esac
 	outputExplanation "$FILE" "$ID"
 
-	read -p "Weiter (Enter) oder Beenden (q)? " CMD < /dev/tty
+	read -rp "Weiter (Enter) oder Beenden (q)? " CMD < /dev/tty
 	case "$CMD" in
 		q) exit
 		;;

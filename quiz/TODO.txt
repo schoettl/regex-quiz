@@ -2,4 +2,3 @@
 * without preceding char?
 ___ /RE/ -> RE muss verankert werden mit ^RE$
 GNU AWK erforderlich!
-Problem: read (bash built-in) sieht Backslash ("\") als Escape Character -> wenn backslash in antwort, muss er escaped werden
