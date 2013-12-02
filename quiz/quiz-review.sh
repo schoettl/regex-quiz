@@ -24,18 +24,14 @@ while read ID ANS; do
 				fi
 				;;
 		"0/1") echo "Ihre Antwort: $ANS"
-				if
-					echo $ANS | grep -F $(outputAnswer "$FILE" "$ID")
-				then
+				if [ $ANS == $(outputAnswer "$FILE" "$ID") ]; then
 					echo "Richtig"
 				else
 					echo "Falsch"
 				fi
 				;;
 		"___") echo "Ihre Antwort: $ANS"
-				if
-					echo $ANS | grep -E "'$(outputAnswer "$FILE" "$ID")'"
-				then
+				if [[ $ANS =~ $(outputAnswer "$FILE" "$ID") ]]; then
 					echo "Richtig"
 				else
 					echo "Falsch"
