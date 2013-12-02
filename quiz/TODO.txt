@@ -1,0 +1,2 @@
+[[:...:]] erlaubt in PCRE (grep -P ...) ?
+* without preceding char?
