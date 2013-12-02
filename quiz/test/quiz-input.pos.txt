@@ -2,7 +2,7 @@
 3
 1 2 5
 3
-// (TODO|FIXME)
+//[[:space:]]*(TODO|FIXME)
 1
 4
 0

@@ -2,7 +2,7 @@
 2
 4
 1
-// \(TODO|FIXME\)
+// ( TODO | FIXME )
 0
 5
 1
