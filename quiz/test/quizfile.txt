@@ -1,0 +1,87 @@
+#RE-1
+
+Wofür stehen die Abkürzungen BRE und ERE?
+
+[x] POSIX Extended Regular Expressions
+[_] Perl Based Regular Expressions
+[_] Expandable Regular Expressions
+[x] POSIX Basic Regular Expressions
+
+Basic Regular Expressions (BRE) und Extended Regular Expressions (ERE) sind im POSIX-Standard beschrieben und werden von Tools wie grep und vi implementiert.
+http://www.regular-expressions.info/posix.html
+Hint: Beide sind im POSIX-Standard definiert.
+
+#RE-3
+
+Was trifft auf den Regulären Ausdruck `*` zu?
+
+(_) Ungültig: es muss ein Zeichen vor dem Stern stehen
+(_) Gültig: der Stern heißt hier "beliebiger String"
+(x) Gültig: der Stern hat hier keine besondere Bedeutung - mit dem Ausdruck findet man einfach Sterne
+
+Im Allgemeinen bedeutet das Metazeichen "Stern", dass das vorhergehende Zeichen beliebig oft vorkommen darf.  In unserem Fall gibt es aber kein vorhergehendes Zeichen gibt.  Dann zählt bei vielen POSIX-RE-Implementierungen der Stern nicht als Metazeichen, sondern als ganz normales Zeichen.
+
+#RE-4
+
+Wie verwendet man die POSIX Character Ranges?  Markieren Sie, wo sie richtig verwendet wurden.
+
+[x] `[[:digit:]]+`
+[x] `[_[:alpha:]][_[:alnum:]]*`
+[_] `"[:alpha:]*"`
+[_] `0x[:xdigit:]+`
+[x] `[[:alpha:][:digit:]]`
+
+Die vordefinierte Character Range `[:alpha:]` entspricht ungefähr `A-Za-z`, daher muss sie nochmal in eckige Klammern eingeschlossen werden: `[[:alpha:]]`.  Somit sind auch mehrere Ranges kombinierbar: `[[:alpha][:space:]]` (findet Buchstaben und Leerzeichen)
+
+#RE-5
+
+Bei Regulären Ausdrücken gibt es viele Dialekte.  Welcher der folgenden ist der (sprachlich) umangreichste?
+
+(_) POSIX Basic Regular Expressions (BRE)
+(_) POSIX Extended Regular Expesssions (ERE)
+(x) Perl Compatible Regular Expressions (PCRE)
+
+Pearl Compatible Regular Expressions (PCRE) ist eine Programmbibliothek für Reguläre Ausdrücke.  Der implementierte Dialekt ist ziemlich kompatibel mit den Regulären Ausdrücken der Programmiersprache Perl und ist damit viel umfangreicher als der POSIX-Standard.
+
+#RE-8
+
+Schreiben Sie einen einfachen Regulären Ausdruck, um TODO- und FIXME-Kommentare im Quellcode zu finden.  Solche Kommentare sehen z. B. so aus: // TODO exception abfangen
+
+___ /\/\/.*\(TODO\|FIXME\)/
+
+Ein einfacher Regulärer Ausdruck für diesen Zweck wäre `// (TODO|FIXME)`
+
+#RE-10
+
+Sie wollen alle C-Makros (z.B. `#define`) finden, die *nicht* der Konvention folgen, wonach Makros linksbündig (am Zeilenanfang) stehen.  Erledigt folgender Befehl diese Aufgabe?
+
+    grep -rn '^[[:space:]]+#[_[:alpha:]][_[:alnum:]]*' .
+
+Hinweise zu den Optionen: `-r` und `.` -- recursive in `$(pwd)`, `-n` -- with line numbers
+
+0/1 1
+
+Jep, der Aufruf ist funktioniert und zeigt alle Zeilen an, in denen Makros nicht am Zeilenanfang stehen.  
+
+#RE-11
+
+Wie viele der folgenden Dateien findet der Reguläre Ausdruck `.c`?
+
+* .config
+* main.c
+* main.h
+* module.cpp
+* cassert
+* ascii.txt
+
+___ /4/
+
+Der Punkt steht für genau ein beliebiges Zeichen.  Daher findet der Ausdruck alle Dateien, die im Namen ein kleines C haben, das aber nicht am Anfang steht.
+
+#RE-22
+
+Jemand versucht ein großes Logfile mit `grep -F '[2013-11-'` zu durchsuchen.  Wird grep wegen dem Parameter einen Fehler ausgeben?
+
+0/1 0
+
+Nein, der Aufruf von grep ist korrekt: Durch die Option `-F`, `--fixed-strings` (oder auch "fast") wird der Parameter *nicht* als Regulärer Ausdruck interpretiert, sondern als feste Zeichenkette, nach der gesucht wird.  Daher gibt es auch keinen Syntaxfehler wegen der öffnenden eckigen Klammer.
