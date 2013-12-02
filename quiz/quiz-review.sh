@@ -16,28 +16,17 @@ while read -r ID ANS; do
 	case "$TYPE" in
 		"[x]"|"(x)") echo "usr sol"
 				outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS"
-				outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
-				if grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})'; then
-					echo "Falsch"
-				else
-					echo "Richtig"
-				fi
 				;;
-		"0/1") echo "Ihre Antwort: $ANS"
-				if [ $ANS == $(outputAnswer "$FILE" "$ID") ]; then
-					echo "Richtig"
-				else
-					echo "Falsch"
-				fi
-				;;
-		"___") echo "Ihre Antwort: $ANS"
-				if [[ $ANS =~ $(outputAnswer "$FILE" "$ID") ]]; then
-					echo "Richtig"
-				else
-					echo "Falsch"
-				fi
+		"0/1"|"___") echo "Ihre Antwort: $ANS"
 				;;
 	esac
+
+	if checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"; then
+		echo "Richtig"
+	else
+		echo "Falsch"
+	fi
+
 	outputExplanation "$FILE" "$ID"
 
 	read -rp "Weiter (Enter) oder Beenden (q)? " CMD < /dev/tty
