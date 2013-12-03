@@ -14,7 +14,7 @@ Zuerst sollten Sie sicherstellen, dass Sie mit Ihrer Shell im richtigen Verzeich
 
     cd ~/learn-regex/quiz
 
-Nun können Sie das Quiz starten:
+Nun können Sie das Quiz starten (Abbrechen/Beenden mit Strg + C):
 
     ./quiz.sh quizfile.txt
 
