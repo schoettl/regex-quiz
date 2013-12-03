@@ -11,8 +11,11 @@ ANSFILE="answers.txt"
 
 cat "$ANSFILE" | sort | uniq | \
 while read -r ID ANS; do
-	echo $ID
 	TYPE=$(outputQuestionType "$FILE" "$ID")
+	echo "ID: $ID"
+	echo "TYPE: $TYPE"
+	echo
+
 	case "$TYPE" in
 		"[x]"|"(x)") echo "usr sol"
 				outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS"
@@ -40,9 +43,12 @@ while read -r ID ANS; do
 	esac
 	outputExplanation "$FILE" "$ID"
 
+	echo "(Vermeintliche) Fehler :P gerne formlos melden an"
+	echo -e "Jakob Schöttl <jschoett@gmail.com>\n"
+
 	read -rp "Weiter (Enter) oder Beenden (q)? " CMD < /dev/tty
 	case "$CMD" in
-		q) exit
+		q|Q) exit
 		;;
 	esac
 done
