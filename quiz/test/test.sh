@@ -39,10 +39,17 @@ function run_test() {
 	fi
 }
 
+echo "Running tests"
+echo "----------------"
+
 # Positive test
-echo "Positive test: all answers are correct"
+echo "Positive test i.e. testing with correct answers"
 run_test test/quiz-input.pos.txt 8 8 test/answers-to-compare.pos.txt
 
 # Negative test
-echo "Negative test: all answers are wrong"
+echo "Negative test i.e. testing with wrong answers"
 run_test test/quiz-input.neg.txt 8 0 test/answers-to-compare.neg.txt
+
+echo "----------------"
+echo "Tests complete"
+echo "If there are no error messages, the test was successful!"
