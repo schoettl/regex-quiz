@@ -16,24 +16,28 @@ while read -r ID ANS; do
 	echo "TYPE: $TYPE"
 	echo
 
+	outputQuestionOnly "$FILE" "$ID"
 	case "$TYPE" in
-		"[x]"|"(x)") echo "usr sol"
+		"[x]"|"(x)") echo "usr sol  (usr: Ihre Antwort, sol: Korrekte Antwort)"
 				outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS"
-				outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
-				if grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})'; then
+				if
+					outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
+					grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})' \
+					&& echo
+				then
 					echo "Falsch"
 				else
 					echo "Richtig"
 				fi
 				;;
-		"0/1") echo "Ihre Antwort: $ANS"
+		"0/1") echo -e "Ihre Antwort: $ANS\n"
 				if [ $ANS == $(outputAnswer "$FILE" "$ID") ]; then
 					echo "Richtig"
 				else
 					echo "Falsch"
 				fi
 				;;
-		"___") echo "Ihre Antwort: $ANS"
+		"___") echo -e "Ihre Antwort: $ANS\n"
 				if [[ $ANS =~ $(outputAnswer "$FILE" "$ID") ]]; then
 					echo "Richtig"
 				else
@@ -41,6 +45,7 @@ while read -r ID ANS; do
 				fi
 				;;
 	esac
+	echo
 	outputExplanation "$FILE" "$ID"
 
 	echo "(Vermeintliche) Fehler :P gerne formlos melden an"
