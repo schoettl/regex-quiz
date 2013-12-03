@@ -15,17 +15,18 @@ else
 fi
 
 echo "Quiz: $FILE"
-echo "ab Frage Nummer $I"
+echo "(ab Frage Nummer $I)"
+echo -e "----------------------\n"
 
 while true; do
 	ID=$(outputQuestionID "$FILE" "$I")
 	if [ -z $ID ]; then
 		break
 	fi
-	echo ID: $ID
 	TYPE=$(outputQuestionType "$FILE" "$ID")
-	echo TYPE: $TYPE
-	echo ---------------
+	echo "ID: $ID"
+	echo "TYPE: $TYPE"
+	echo
 	outputQuestionOnly "$FILE" "$ID"
 	case $TYPE in
 		"[x]") outputOptionsWithoutAnswers "$FILE" "$ID" | nl -w2 -s' '

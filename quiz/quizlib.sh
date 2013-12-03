@@ -23,7 +23,7 @@ function outputFullQuestion() {
 # param2: question id
 function outputQuestionOnly() {
 	outputFullQuestion "$1" "$2" | \
-	awk '/^(\[[_x]\]|\([_x]\)|___|0\/1)/{exit};{print}'
+	awk '/^(\[[_x]\]|\([_x]\)|___|0\/1)/{exit}; NR>2 {print}'
 }
 
 # Outputs the explanation (for the answer(s))
