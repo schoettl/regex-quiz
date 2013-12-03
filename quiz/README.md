@@ -30,6 +30,16 @@ Um Ihre Antworten zu löschen und von vorne zu beginnen:
 
     rm answers.txt
 
+Dependencies
+------------
+
+The quiz requires at least Bash version 3 for the Conditional Construct [[...]]
+
+
+The quiz requires GNU Awk -- to install it:
+
+    sudo apt-get install gawk
+
 Bugs
 ----
 
