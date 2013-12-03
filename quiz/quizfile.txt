@@ -84,7 +84,7 @@ Innerhalb von eckigen Klammern (bracket expression) haben die üblichen Metazeic
 
 Schreiben Sie einen einfachen Regulären Ausdruck, um TODO- und FIXME-Kommentare im Quellcode zu finden.  Solche Kommentare sehen z.B. so aus: "// TODO exception abfangen"
 
-___ /\/\/.*\(TODO\|FIXME\)/
+___ /^\/\/.*\(TODO\|FIXME\)$/
 
 Ein einfacher Regulärer Ausdruck für diesen Zweck wäre `// (TODO|FIXME)`
 
@@ -123,7 +123,7 @@ Wie viele der folgenden Dateien findet der Reguläre Ausdruck `.c`?
 * cassert
 * ascii.txt
 
-___ /4/
+___ /^4$/
 
 Der Punkt steht für genau ein beliebiges Zeichen.  Daher findet der Ausdruck alle Dateien, die im Namen ein kleines C haben, das aber nicht am Anfang steht.
 
@@ -136,7 +136,7 @@ Wie viele der folgenden Dateien werden mit dem Regulrärem Ausdruck `.*` gefunde
 * COPYING
 * manual.pdf
 
-___ /4/
+___ /^4$/
 
 Der Punkt steht für ein beliebiges Zeichen.  Der Stern bedeutet "beliebig oft".  Daher findet der Ausdruck alle Dateien.
 
@@ -176,7 +176,7 @@ Die offiziellen Naming Conventions der Programmiersprache Java fordern, dass bei
 * Verwenden Sie am Anfang und Ende Ihres Ausdrucks `\b` ("word boundary").
 * Gehen Sie davon aus, dass die Methodennamen nur aus `[a-zA-Z]` bestehen.
 
-___ /\\b\(\[a-z\]\+\[A-Z\]\?\)\+\\b/
+___ /^\\b\(\[a-z\]\+\[A-Z\]\?\)\+\\b$/
 
 Natürlich gibt es hier viele Lösungen.  Die knappeste die alle obigen Bedingungen erfüllt dürfte wohl diese sein: `\b([a-z]+[A-Z]?)+\b`
 
@@ -186,7 +186,7 @@ Ob Ihre Lösung auch funktioniert können Sie z.B. hier testen: https://www.debu
 
 Schreiben Sie einen Regulären Ausdruck, der die Maus in folgendem Satz findet: "Wo ist die Maus?"
 
-___ /Maus/
+___ /^Maus$/
 
 Um ein Wort zu finden, die keine RE-Metazeichen enthält, ergibt sich ein ganz einfacher Regulärer Ausdruck: `Maus`
 
@@ -247,7 +247,7 @@ Welche der folgenden Aufrufe von grep lassen nur Nicht-Leerzeilen durch?
 
 `grep -P '^\s*#' script.sh` -- Welche grep-Option fehlt hier, wenn der Aufruf alle Kommentarzeilen im Shell-Skript *entfernen* soll?  Kommentare in Shell-Skripten beginnen übrigens mit "#".
 
-___ /-v|--invert-match/
+___ /^(-v|--invert-match)$/
 
 Mit dem obigen Aufruf werden Kommentarzeilen nicht entfernt, sondern im Gegenteil alle anderen Zeilen entfernt.  Um das Verhalten zu invertieren verwendet man die Option `-v`, `--invert-match`.
 
