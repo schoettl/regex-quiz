@@ -27,13 +27,14 @@ while read -r ID ANS; do
 	case "$TYPE" in
 		"[x]"|"(x)") echo "usr sol  (usr: Ihre Antwort, sol: Korrekte Antwort)"
 				outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS"
+				echo
 				if
 					outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
 					grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})'
 				then
-					echo && echo $INCORRECT
+					echo $INCORRECT
 				else
-					echo && echo $CORRECT
+					echo $CORRECT
 				fi
 				;;
 		"0/1") echo -e "Ihre Antwort: $ANS\n"
