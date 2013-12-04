@@ -278,3 +278,33 @@ Ergibt eine Suche mit dem Reguläre Ausdruck `[^abc]` im String "abc" Treffer?
 0/1 0
 
 Nein, die Suche ergibt keine Treffer.  Das Zeichen `^` nach einer öffnenden eckigen Klammer bedeutet "nicht".  Der Ausdruck `[^abc]` bedeutet also "jedes Zeichen außer `[abc]`".
+
+#RE-25
+
+Sie wollen alte C-Kommentare (`/* kommentar */`), die am Ende einer Zeile stehen, ersetzen durch solche Kommentare: `... // kommentar`
+
+Zeilen, die Anfu;hrungszeichen enthalten lassen Sie lieber mal aus.  Das ko;nnte sonst Probleme geben bei String-Literalen geben, z.B. `char *s = "/* */";`.
+
+Sie verwenden den Aufruf `sed 's/regexp/replacement/'` mit backreferences in `replacement`.  Was wa;hlen Sie als `regexp`, was als `replacement`?
+
+[x] `regexp`: `^\([^"]*\)\/\*\(.*\)\*\/[[:space:]]*$`
+[_] `regexp`: `^\([^"]*\)\/\*\(.*\)\*\/[[:space:]]*$`
+[_] `replacement`: `\1 \/\/\2`
+[x] `replacement`: `\1 \/\/\2`
+
+Folgender Aufruf ist richtig: `sed 's/^\([^"]*\)\/\*\(.*\)\*\/[[:space:]]*$/\1 \/\/\2/'`
+
+echo ' fu =  /* komment */ ' | awk '{print gensub(/^([^"]*)\/\*(.*)\*\/[[:space:]]*$/, "\\1 //\\2", "g")}'
+\s statt [[:space:]] ist bei sed und awk mo;glich
+
+#RE-26
+
+Sie haben in ihrem Softwareprojekt Refactoring betrieben und die Funktion `getCurrPlayer` umbenannt in `getCurrentPlayer`.  Eigentlich sollte die IDE alle Vorkommen richtig ersetzt haben.  Um sicher zu gehen wollen Sie aber alle Quelldateien finden, in der noch der alte Name der Funktion vorkommt.
+
+Sie verwenden den Aufruf `grep -rLF 'getCurrPlayer' .`.  Fu;hrt das zum gewu;nschten Ergebnis?
+
+0/1 0
+
+Nein, nur fast.  Richtig wa;re `grep -rlF 'getCurrPlayer' .`, also mit der Option `-l` (kleines L) statt `-L`.  Die Option `-l`, `--files-with-match` sorgt dafu;r, dass nur die Namen derer Dateien ausgegeben werden, die `getCurrPlayer` enthalten.
+
+Siehe `man grep`, suche nach `-l` bzw. `-L`.
