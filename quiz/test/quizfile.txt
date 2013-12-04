@@ -47,7 +47,7 @@ Pearl Compatible Regular Expressions (PCRE) ist eine Programmbibliothek für Reg
 
 Schreiben Sie einen einfachen Regulären Ausdruck, um TODO- und FIXME-Kommentare im Quellcode zu finden.  Solche Kommentare sehen z. B. so aus: // TODO exception abfangen
 
-___ /\/\/.*\(TODO\|FIXME\)/
+___ /^\/\/.*\(TODO\|FIXME\)$/
 
 Ein einfacher Regulärer Ausdruck für diesen Zweck wäre `// (TODO|FIXME)`
 
@@ -74,7 +74,7 @@ Wie viele der folgenden Dateien findet der Reguläre Ausdruck `.c`?
 * cassert
 * ascii.txt
 
-___ /4/
+___ /^4$/
 
 Der Punkt steht für genau ein beliebiges Zeichen.  Daher findet der Ausdruck alle Dateien, die im Namen ein kleines C haben, das aber nicht am Anfang steht.
 
