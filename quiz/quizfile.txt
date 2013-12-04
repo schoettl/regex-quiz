@@ -326,3 +326,50 @@ Sie verwenden den Aufruf `grep -rLF 'getCurrPlayer' .`.  Führt das zum gewünsc
 Nein, eine Option ist falsch.  Richtig wäre `grep -rlF 'getCurrPlayer' .`, also mit der Option `-l` (kleines L) statt `-L`.  Die Option `-l`, `--files-with-match` sorgt dafür, dass nur die Namen derer Dateien ausgegeben werden, die `getCurrPlayer` enthalten.
 
 Siehe `man grep`, suche nach `-l` bzw. `-L`.
+
+#RE-27
+
+Sie wollen alle Dateien im aktuellen Verzeichnis finden, die *nicht* `RE` enthalten.  Welche Option fehlt bei folgendem Aufruf:
+
+    grep --directories=skip 'RE' *
+
+___ /^(-L|--files-without-match)$/
+
+Es fehlt die Option `-L`, `--files-without-match`.  Damit werden die Namen der Dateien ausgegeben, in der keine Treffer für `RE` gefunden wurden.
+
+#RE-28
+
+Mit welchem Aufruf finden Sie Logfiles, die *nicht in jeder Zeile* `RE` enthalten?
+
+(_) `grep -vLE 'RE' *.log`
+(_) `grep  -LE 'RE' *.log`
+(x) `grep -vlE 'RE' *.log`
+(_) Keiner der oberen
+
+Erklärungsversuch: Ohne `-v` würden Dateien gefunden, die `RE` mindestens einmal enthalten.  Die Option `-v` ("invert match") bewirkt das Gegenteil.  Damit werden Dateien gefunden, die `RE` in mindestens einer Zeile *nicht* enthalten.  Letzteres ist äquivalent zu "nicht in jeder Zeile".
+
+`-l` ist das gleiche wie `--files-with-match`, `-L` das gleiche `--files-without-match`.  `-E` steht wieder für "POSIX Extended Regular Expression".  Der letzte Parameter `*.log` sind die Dateien, die grep durchsuchen soll.
+
+#RE-29
+
+Was macht folgender Aufruf?
+
+    grep -vdskip . *
+
+(x) Findet Leerzeilen in allen Dateien des aktuellen Verzeichnises
+(_) Findet alle Zeilen in jeder Datei des aktuellen Verzeichnisses
+(_) Die Optionen des Aufrufs sind Unsinn
+(_) Fehler: Ungültige Option(en)
+(_) Fehler: Ungültige(r) Parameter
+
+Der Aufruf ist syntaktisch korrekt und findet alle Leerzeilen in allen Dateien des aktuellen Verzeichnisses.  Unterverzeichnisse werden dabei übersprungen.  Der Reguläre Ausdruck (BRE) ist hier `.`, das heißt zunächst alle Zeilen in denen irgendetwas steht.  Wegen `-v` werden stattdessen aber Zeilen gefunden, in denen nichts steht.
+
+Optionen, die nur aus einem Buchstaben bestehen ("short options") können bekanntlich kombiniert werden, sie müssen also nicht einzeln aufgeführt werden, z.B. `-rnE` statt `-r -n -E`.  Außerdem wird hier eine Option mit Argument verwendet.  Gültige Schreibweisen in diesem Fall:
+
+* `--directory=skip`
+* `-d skip`
+* `-dskip`
+
+Und auch hier sind die einbuchstabigen Optionen kombinierbar, solange die Option mit Parameter die letzte ist: `-vd skip`
+
+Siehe `man grep`.  Eine genaue Beschreibung, wie Optionen/Parameter der Kommandozeile geparst werden findet man, wenn man nach "getopts manual" sucht.
