@@ -9,6 +9,9 @@ source quizlib.sh
 FILE="$1"
 ANSFILE="answers.txt"
 
+CORRECT="Richtig"
+INCORRECT="Falsch"
+
 echo "Quiz: $FILE"
 echo "Your answers: $ANSFILE"
 echo -e "----------------------\n"
@@ -26,26 +29,25 @@ while read -r ID ANS; do
 				outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS"
 				if
 					outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
-					grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})' \
-					&& echo
+					grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})'
 				then
-					echo "Falsch"
+					echo && echo $INCORRECT
 				else
-					echo "Richtig"
+					echo && echo $CORRECT
 				fi
 				;;
 		"0/1") echo -e "Ihre Antwort: $ANS\n"
 				if [ $ANS == $(outputAnswer "$FILE" "$ID") ]; then
-					echo "Richtig"
+					echo $CORRECT
 				else
-					echo "Falsch"
+					echo $INCORRECT
 				fi
 				;;
 		"___") echo -e "Ihre Antwort: $ANS\n"
 				if [[ $ANS =~ $(outputAnswer "$FILE" "$ID") ]]; then
-					echo "Richtig"
+					echo $CORRECT
 				else
-					echo "Falsch"
+					echo $INCORRECT
 				fi
 				;;
 	esac
