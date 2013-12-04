@@ -283,28 +283,46 @@ Nein, die Suche ergibt keine Treffer.  Das Zeichen `^` nach einer öffnenden eck
 
 Sie wollen alte C-Kommentare (`/* kommentar */`), die am Ende einer Zeile stehen, ersetzen durch solche Kommentare: `... // kommentar`
 
-Zeilen, die Anfu;hrungszeichen enthalten lassen Sie lieber mal aus.  Das ko;nnte sonst Probleme geben bei String-Literalen geben, z.B. `char *s = "/* */";`.
+Zeilen, die Anführungszeichen enthalten lassen Sie lieber mal aus.  Das könnte sonst Probleme geben bei String-Literalen geben, z.B. `char *s = "/* */";`.
 
-Sie verwenden den Aufruf `sed 's/regexp/replacement/'` mit backreferences in `replacement`.  Was wa;hlen Sie als `regexp`, was als `replacement`?
+Sie verwenden folgenden Aufruf:
 
-[x] `regexp`: `^\([^"]*\)\/\*\(.*\)\*\/[[:space:]]*$`
-[_] `regexp`: `^\([^"]*\)\/\*\(.*\)\*\/[[:space:]]*$`
-[_] `replacement`: `\1 \/\/\2`
-[x] `replacement`: `\1 \/\/\2`
+    awk '{print gensub(/regexp/, "replacement", "g")}'
 
-Folgender Aufruf ist richtig: `sed 's/^\([^"]*\)\/\*\(.*\)\*\/[[:space:]]*$/\1 \/\/\2/'`
+`gensub` ("general substitution") ersetzt `regexp` durch `replacement`.  `replacement` enthält backreferences `\\1` und `\\2`, bezieht sich also auf Gruppen `(...)` in `regexp`.  Was wählen Sie als `regexp`, was als `replacement`?
 
-echo ' fu =  /* komment */ ' | awk '{print gensub(/^([^"]*)\/\*(.*)\*\/[[:space:]]*$/, "\\1 //\\2", "g")}'
-\s statt [[:space:]] ist bei sed und awk mo;glich
+[x] `regexp`: `^([^"]*)\/\*(.*)\*\/[[:space:]]*$`
+[_] `regexp`: `([^"]*)/*(.*)*/[[:space:]]*`
+[_] `replacement`: `\\2//\\1`
+[x] `replacement`: `\\1//\\2`
+
+Folgender Aufruf von awk ist richtig, ebenso das Äquivialent mit sed:
+
+    awk '{print gensub(/^([^"]*)\/\*(.*)\*\/[[:space:]]*$/, "\\1//\\2", "g")}'
+    sed 's/^\([^"]*\)\/\*\(.*\)\*\/[[:space:]]*$/\1\/\/\2/'
+
+Details zum awk-Aufruf: awk ist ein Tool und eine kleine Programmiersprache zur Manipulation von Textdateien.  Die Befehle in `{ ... }` werden hier für jede Zeile ausgeführt, `print` heißt "ausgeben", `gensub` ("general substitution function") liefert nach der Ersetzung den Ergebnis-String zurück.
+
+Was den regulären Ausdruck betrifft...
+
+* Der Reguläre Ausdruck muss an der Zeile verankert werden: `^...$`
+* Die erste Gruppe `(...)`, die erhalten bleibt, ist `[^"]*`.  Also beliebiger Quellcode, der aber keine Anführungszeichen enthält.
+* Zum finden von `/* ... */` müssen `/` sowie `*` mit dem Backslash entwertet werden, also `\/\* ... \*\/`.
+* Die zweite Gruppe `(...)`, die erhalten bleibt, ist `.*`, der Kommentartext.
+* Am Ende der Zeile dürfen beliebig viele Leerzeichen stehen, die bei der Ersetzung wegfallen: `[[:space:]]*$`
+
+Zum Testen:
+
+    echo 'n = 3; /* assign */ ' | awk '{print gensub(/^([^"]*)\/\*(.*)\*\/[[:space:]]*$/, "\\1//\\2", "g")}'
 
 #RE-26
 
-Sie haben in ihrem Softwareprojekt Refactoring betrieben und die Funktion `getCurrPlayer` umbenannt in `getCurrentPlayer`.  Eigentlich sollte die IDE alle Vorkommen richtig ersetzt haben.  Um sicher zu gehen wollen Sie aber alle Quelldateien finden, in der noch der alte Name der Funktion vorkommt.
+Sie haben in ihrem Softwareprojekt Refactoring betrieben und die Funktion `getCurrPlayer` umbenannt in `getCurrentPlayer`.  Eigentlich sollte die IDE alle Vorkommen richtig ersetzt haben.  Um sicher zu gehen wollen Sie aber alle Quelldateien finden, in denen der alte Funktionsname noch irgendwie vorkommt.
 
-Sie verwenden den Aufruf `grep -rLF 'getCurrPlayer' .`.  Fu;hrt das zum gewu;nschten Ergebnis?
+Sie verwenden den Aufruf `grep -rLF 'getCurrPlayer' .`.  Führt das zum gewünschten Ergebnis?
 
 0/1 0
 
-Nein, nur fast.  Richtig wa;re `grep -rlF 'getCurrPlayer' .`, also mit der Option `-l` (kleines L) statt `-L`.  Die Option `-l`, `--files-with-match` sorgt dafu;r, dass nur die Namen derer Dateien ausgegeben werden, die `getCurrPlayer` enthalten.
+Nein, eine Option ist falsch.  Richtig wäre `grep -rlF 'getCurrPlayer' .`, also mit der Option `-l` (kleines L) statt `-L`.  Die Option `-l`, `--files-with-match` sorgt dafür, dass nur die Namen derer Dateien ausgegeben werden, die `getCurrPlayer` enthalten.
 
 Siehe `man grep`, suche nach `-l` bzw. `-L`.
