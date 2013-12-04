@@ -208,7 +208,7 @@ Eingesetzt in den Aufruf oben werden dadurch alle Leerzeichen am Zeilenende durc
 
 Sie wollen die "Source Lines Of Code" (SLOC) Ihres Programms wissen -- allerdings sollen Leerzeilen *nicht* mitzählen.  Sie verwenden den folgenden Aufruf:
 
-    cat main.c | grep -v 'RE' | wc -l
+    cat main.c | grep -vE 'RE' | wc -l
 
 Beachten Sie die Option `-v` ("invert match").  grep lässt damit nur Zeilen durch, auf die der Reguläre Ausdruck `RE` *nicht* passt.  Wie muss der Ausdruck `RE` aussehen?
 
@@ -239,7 +239,7 @@ Welche der folgenden Aufrufe von grep lassen nur Nicht-Leerzeilen durch?
 
 [_] `grep '.*'`
 [x] `grep -v '^$'`
-[x] `grep '.+'`
+[x] `grep -E '.+'`
 
 `grep '.*'` lässt alle Zeilen durch, in denen null oder mehr beliebige Zeichen stehen.  Damit werden auch Leerzeilen durchgelassen.  Die anderen beiden Aufrufe funktionieren wie gefordert und verwerfen Leerzeilen.  Der Aufruf mit der Option `-v` (für "invert match") findet mit dem Regulären Ausdruck `^$` Leerzeilen, und lässt eben diese *nicht* durch.
 
