@@ -9,6 +9,10 @@ source quizlib.sh
 FILE="$1"
 ANSFILE="answers.txt"
 
+echo "Quiz: $FILE"
+echo "Your answers: $ANSFILE"
+echo -e "----------------------\n"
+
 cat "$ANSFILE" | sort | uniq | \
 while read -r ID ANS; do
 	TYPE=$(outputQuestionType "$FILE" "$ID")
@@ -56,4 +60,5 @@ while read -r ID ANS; do
 		q|Q) exit
 		;;
 	esac
+	clear
 done
