@@ -23,35 +23,19 @@ while read -r ID ANS; do
 	echo "TYPE: $TYPE"
 	echo
 
-	outputQuestionOnly "$FILE" "$ID"
-	case "$TYPE" in
+	case $TYPE in
 		"[x]"|"(x)") echo "usr sol  (usr: Ihre Antwort, sol: Korrekte Antwort)"
-				outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS"
-				echo
-				if
-					outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
-					grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})' > /dev/null
-				then
-					echo $INCORRECT
-				else
-					echo $CORRECT
-				fi
-				;;
-		"0/1") echo -e "Ihre Antwort: $ANS\n"
-				if [ $ANS == $(outputAnswer "$FILE" "$ID") ]; then
-					echo $CORRECT
-				else
-					echo $INCORRECT
-				fi
-				;;
-		"___") echo -e "Ihre Antwort: $ANS\n"
-				if [[ $ANS =~ $(outputAnswer "$FILE" "$ID") ]]; then
-					echo $CORRECT
-				else
-					echo $INCORRECT
-				fi
-				;;
+				outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" ;;
+		"0/1"|"___") echo "Ihre Antwort: $ANS" ;;
 	esac
+
+	echo
+	if checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"; then
+		echo $CORRECT
+	else
+		echo $INCORRECT
+	fi
+
 	echo
 	outputExplanation "$FILE" "$ID"
 
