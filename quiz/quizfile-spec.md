@@ -52,7 +52,7 @@ Dieser Teil enthält den Fragetyp und die korrekten Antworten.  Der Text dieses 
 
 #### Typ: Multiple Choice `[x]`
 
-Bei diesem Typ gibt es mindestens eine Option.  Die einleitende Klammer steht am Zeilenanfang (keine führenden Leerzeichen).  Jede Option bekommt genau eine Zeile.  Es sind keine Leerzeilen zwischen den Optionen erlaubt.  Der Text jeder Option ist [Markdown][md]-Text.
+Bei diesem Typ gibt es mindestens eine Option.  Die einleitende Klammer steht am Zeilenanfang (keine führenden Leerzeichen).  Jede Option bekommt genau eine Zeile.  Es sind keine Leerzeilen zwischen den Optionen erlaubt.  Der Text jeder Option ist [Markdown][md]-Text.  Er wird von den einleitenden Klammern durch ein Leerzeichen getrennt.  Es gilt die inherente Einschränkung, dass der Text nur Teil einer Zeile ist und somit nur bestimmte [Markdown][md]-Features nutzen kann.
 
 Beispiel:
 
@@ -63,7 +63,7 @@ Richtige Optionen werden mit einem kleinen X ("x") markiert, falsche Optionen mi
 
 #### Typ: Single Choice `(x)`
 
-Bei diesem Typ gibt es mindestens eine Option.  Die einleitende Klammer steht am Zeilenanfang (keine führenden Leerzeichen).  Jede Option bekommt genau eine Zeile.  Es sind keine Leerzeilen zwischen den Optionen erlaubt.  Der Text jeder Option ist [Markdown][md]-Text.
+Bei diesem Typ gibt es mindestens eine Option.  Die einleitende Klammer steht am Zeilenanfang (keine führenden Leerzeichen).  Jede Option bekommt genau eine Zeile.  Es sind keine Leerzeilen zwischen den Optionen erlaubt.  Der Text jeder Option ist [Markdown][md]-Text.  Er wird von den einleitenden Klammern durch ein Leerzeichen getrennt.  Es gilt die inherente Einschränkung, dass der Text nur Teil einer Zeile ist und somit nur bestimmte [Markdown][md]-Features nutzen kann.
 
 Beispiel:
 
