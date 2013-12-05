@@ -96,13 +96,10 @@ function outputOptionsWithoutAnswers() {
 # param4: user answer
 function checkAnswer() {
 	case $TYPE in
-		"[x]"|"(x)") outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
+		"[x]"|"(x)") ! outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
 				grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})' > \
-				/dev/null
-				;;
-		"0/1") [ $ANS == $(outputAnswer "$FILE" "$ID") ]
-				;;
-		"___") [[ $ANS =~ $(outputAnswer "$FILE" "$ID") ]]
-				;;
+				/dev/null ;;
+		"0/1")  [ $ANS == $(outputAnswer "$FILE" "$ID") ]  ;;
+		"___") [[ $ANS =~ $(outputAnswer "$FILE" "$ID") ]] ;;
 	esac
 }
