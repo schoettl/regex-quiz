@@ -30,7 +30,7 @@ while read -r ID ANS; do
 				echo
 				if
 					outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
-					grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})'
+					grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})' > /dev/null
 				then
 					echo $INCORRECT
 				else
