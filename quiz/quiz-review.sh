@@ -13,7 +13,7 @@ cat "$ANSFILE" | sort | uniq | \
 while read -r ID ANS; do
 	echo $ID
 	TYPE=$(outputQuestionType "$FILE" "$ID")
-	case "$TYPE" in
+	case $TYPE in
 		"[x]"|"(x)") echo "usr sol"
 				outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS"
 				;;
@@ -21,6 +21,7 @@ while read -r ID ANS; do
 				;;
 	esac
 
+	echo
 	if checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"; then
 		echo "Richtig"
 	else

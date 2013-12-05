@@ -1,6 +1,7 @@
+#
+# quizlib -- a bash library to process quizfiles
 # 
 # Jakob Schöttl
-# 
 # 
 
 # Outputs the ID of the specified question
@@ -88,15 +89,16 @@ function outputOptionsWithoutAnswers() {
 	sed 's/^\[x]/[_]/' | sed 's/^(x)/(_)/'
 }
 
-# Return 1 for a wrong answer
+# Return 0 for a correct answer, 1 otherwise
 # param1: quizfile
 # param2: question id
 # param3: question type
 # param4: user answer
 function checkAnswer() {
-	case "$TYPE" in
+	case $TYPE in
 		"[x]"|"(x)") outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
-				grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})'
+				grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})' > \
+				/dev/null
 				;;
 		"0/1") [ $ANS == $(outputAnswer "$FILE" "$ID") ]
 				;;
