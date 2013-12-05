@@ -42,7 +42,7 @@ Es macht vielleicht Sinn, die IDs wie folgt aufzubauen: `#QUIZTHEMA-NR`; Beispie
 Die Frage ist beliebiger [Markdown][md]-Text, bis auf folgende Ausnahmen:
 
 * darf keine Überschriften enthalten
-* keine Zeile darf mit folgendem Regulären Ausdruck matchen: `^(\[[_x]]|\([_x]\)|0/1|___)`.  In anderen Worten, die Zeilen mit keinem der folgenden Strings beginnen: "[_]", "[x]", "(_)", "(x)", "0/1", "___".
+* keine Zeile darf mit folgendem Regulären Ausdruck matchen: `^(\[[_x]]|\([_x]\)|0/1|___)`.  In anderen Worten, die Zeilen mit keinem der folgenden Strings beginnen: "[\_]", "[x]", "(\_)", "(x)", "0/1", "\_\_\_".
 
 (Leerzeilen/Absätze sind erlaubt.)
 
@@ -59,7 +59,7 @@ Beispiel:
     [x] Richtige Antwort
     [_] Falsche Antwort
 
-Richtige Optionen werden mit einem kleinen X ("x") markiert, falsche Optionen mit einem Unterstrich ("_").
+Richtige Optionen werden mit einem kleinen X ("x") markiert, falsche Optionen mit einem Unterstrich ("\_").
 
 #### Typ: Single Choice `(x)`
 
@@ -70,7 +70,7 @@ Beispiel:
     (x) Richtige Antwort
     (_) Falsche Antwort
 
-Die richtigen Optionen werden mit einem kleinen X ("x") markiert, falsche Optionen mit einem Unterstrich ("_").  Es muss genau eine Option richtig sein.
+Die richtigen Optionen werden mit einem kleinen X ("x") markiert, falsche Optionen mit einem Unterstrich ("\_").  Es muss genau eine Option richtig sein.
 
 #### Typ: True/False `0/1`
 
@@ -82,7 +82,7 @@ Beispiel:
 
 #### Typ: Free Input `___`
 
-Fragen dieses Typs erlauben eine freie Eingabe als Antwort.  Der String "___" definiert den Fragetyp.  Er steht am Zeilenanfang (keine führenden Leerzeichen).  Die korrekte Antwort wird durch genau ein Leerzeichen getrennt als POSIX Extended Regular Expression zwischen Schrägstrichen ("/") angegeben.
+Fragen dieses Typs erlauben eine freie Eingabe als Antwort.  Der String "\_\_\_" definiert den Fragetyp.  Er steht am Zeilenanfang (keine führenden Leerzeichen).  Die korrekte Antwort wird durch genau ein Leerzeichen getrennt als POSIX Extended Regular Expression zwischen Schrägstrichen ("/") angegeben.
 
 Beispiel:
 
