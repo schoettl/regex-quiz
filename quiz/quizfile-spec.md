@@ -42,7 +42,7 @@ Es macht vielleicht Sinn, die IDs wie folgt aufzubauen: `#QUIZTHEMA-NR`; Beispie
 Die Frage ist beliebiger [Markdown][md]-Text, bis auf folgende Ausnahmen:
 
 * darf keine Überschriften enthalten
-* keine Zeile darf mit folgendem Regulären Ausdruck matchen: `^(\[[_x]]|\([_x]\)|0/1|___)`.  In anderen Worten, die Zeilen mit keinem der folgenden Strings beginnen: "[\_]", "[x]", "(\_)", "(x)", "0/1", "\_\_\_".
+* keine Zeile darf mit folgendem Regulären Ausdruck matchen: `^(\[[_x]]|\([_x]\)|0/1|___)`.  In anderen Worten, Zeilen dürfen mit keinem der folgenden Strings beginnen: "[\_]", "[x]", "(\_)", "(x)", "0/1", "\_\_\_".
 
 (Leerzeilen/Absätze sind erlaubt.)
 
