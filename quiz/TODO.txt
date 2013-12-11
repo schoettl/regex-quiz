@@ -2,3 +2,11 @@
 * without preceding char? OK in GNU grep, sed, awk, vim
 ___ /RE/ -> RE muss verankert werden mit ^RE$
 GNU awk erforderlich!
+
+2013-12-11 Mi, 17:56 MG
+* start with `clear` or `tput clear` (are there systems with tput but no clear??)
+* Auswertung: Aufruf mit zwei (bzw. many) Argumenten!  
+  ./quiz-review.sh quizfile.txt  answers.txt [answers2.txt ...]
+* review: -s for 'short' or 'summary': pro Zeile ok or nope, am Ende k von n.
+* "prompt" mit "invert" ( bold=`tput smso`; offbold=`tput rmso`;  prompt="${bold}..${offbold} "
+
