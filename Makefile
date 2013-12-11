@@ -1,15 +1,15 @@
 # Makefile for learn-regex
 
-DIST   =  README.md quiz.sh quiz-review.sh quizlib.sh  quizfile.txt
+FILES  =  README.md quiz.sh quiz-review.sh quizlib.sh  quizfile.txt
 SRC    = ./quiz
 TARGET = /tmp/learn-regex.tgz
-DIR    = ./learn-regex
+PACK   = ./learn-regex
 
 dist:
-	rm -rf $(DIR) && mkdir $(DIR)
-	cd ($SRC) cp $(DIST) $(DIR)
-	rm -f $(TARGET) && tar zcf $(TARGET) $(DIR)
-	rm -rf $(DIR)
+	rm -rf $(PACK) && mkdir $(PACK)
+	cd $(SRC) && cp $(FILES) ../$(PACK)
+	rm -f $(TARGET) && tar zcf $(TARGET) $(PACK)
+	rm -rf $(PACK)
 	@echo
 	@echo "    created $(TARGET)"
 	@echo
