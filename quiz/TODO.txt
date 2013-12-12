@@ -7,6 +7,8 @@ GNU awk erforderlich!
 * start with `clear` or `tput clear` (are there systems with tput but no clear??)
 * Auswertung: Aufruf mit zwei (bzw. many) Argumenten!  
   ./quiz-review.sh quizfile.txt  answers.txt [answers2.txt ...]
+* Konsequenterweise dann auch Option --answerfile (oder so) für quiz.sh, mit default...
+  ./quiz.sh --answerfile=answers.txt quizfile.txt
 * review: -s for 'short' or 'summary': pro Zeile ok or nope, am Ende k von n.
 * "prompt" mit "invert" ( bold=`tput smso`; offbold=`tput rmso`;  prompt="${bold}..${offbold} "
 
