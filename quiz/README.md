@@ -22,10 +22,12 @@ Falls Sie aber schon die ersten 8 Aufgaben gemacht haben und mit der neunten Auf
 
     ./quiz.sh 9 quizfile.txt
 
-Ihre Antworten werden in der Datei `answers.txt` gespeichert.  Zum Kontrollieren Ihrer Antworten:
+Ihre Antworten werden in der Datei `answers.txt` gespeichert.  Existiert die Datei bereits, werden die Antworten hinten angehängt.
+
+Zum Kontrollieren Ihrer Antworten:
 
     ./quiz-review.sh quizfile.txt
-	
+
 Um Ihre Antworten zu löschen und von vorne zu beginnen:
 
     rm answers.txt
