@@ -114,7 +114,7 @@ Beispiel einer Aufgabe
     
     ___ /^Maus$/
     
-    Um ein Wort zu finden, die keine RE-Metazeichen enthält, ergibt sich ein ganz einfacher Regulärer Ausdruck: `Maus`
+    Um ein Wort zu finden, das keine RE-Metazeichen enthält, ergibt sich ein ganz einfacher Regulärer Ausdruck: `Maus`
 
 Für weitere Beispiele siehe `quizfile.txt`.
 
