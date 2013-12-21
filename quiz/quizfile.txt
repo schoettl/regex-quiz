@@ -188,7 +188,7 @@ Schreiben Sie einen Regulären Ausdruck, der die Maus in folgendem Satz findet: 
 
 ___ /^Maus$/
 
-Um ein Wort zu finden, die keine RE-Metazeichen enthält, ergibt sich ein ganz einfacher Regulärer Ausdruck: `Maus`
+Um ein Wort zu finden, das keine RE-Metazeichen enthält, ergibt sich ein ganz einfacher Regulärer Ausdruck: `Maus`
 
 #RE-17
 
