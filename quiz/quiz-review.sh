@@ -4,6 +4,8 @@
 # Jakob Schöttl
 # 
 
+USAGE="usage: "
+
 source quizlib.sh
 
 FILE="$1"

@@ -4,6 +4,8 @@
 # Jakob Schöttl
 #
 
+USAGE="usage: "
+
 source quizlib.sh
 
 if [ $# -gt 1 ]; then
