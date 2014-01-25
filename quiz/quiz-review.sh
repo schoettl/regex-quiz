@@ -16,6 +16,7 @@ SUMMARY=false
 CORRECT="Richtig"
 INCORRECT="Falsch"
 
+clear
 echo "Quiz: $FILE"
 echo "Your answers: $ANSFILE"
 echo -e "----------------------\n"

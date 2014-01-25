@@ -4,7 +4,7 @@ ___ /RE/ -> RE muss verankert werden mit ^RE$
 GNU awk erforderlich!
 
 2013-12-11 Mi, 17:56 MG
-* start with `clear` or `tput clear` (are there systems with tput but no clear??)
+* are there systems with tput but no clear?? -> then replace `clear` with `tput clear`
 * Auswertung: Aufruf mit zwei (bzw. many) Argumenten!  
   ./quiz-review.sh quizfile.txt  answers.txt [answers2.txt ...]
 * Konsequenterweise dann auch Option --answerfile (oder so) für quiz.sh, mit default...

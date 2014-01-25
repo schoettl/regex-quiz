@@ -14,6 +14,7 @@ else
 	FILE="$1"
 fi
 
+clear
 echo "Quiz: $FILE"
 echo "(ab Frage Nummer $I)"
 echo -e "----------------------\n"
