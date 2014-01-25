@@ -10,8 +10,8 @@ FILE="$1"
 ANSFILE="answers.txt"
 
 INTERACTIVE=true
-VERBOSE=false
-SUMMARY=false
+#VERBOSE=false
+#SUMMARY=false
 
 CORRECT="Richtig"
 INCORRECT="Falsch"
@@ -55,4 +55,25 @@ if $INTERACTIVE; then
 		esac
 		clear
 	done
+else
+	NTOTAL=0
+	NCORRECT=0
+	# BUG: piping into while -> subshell -> changed variables not "exported"
+	cat "$ANSFILE" | sort | uniq | \
+	while read -r ID ANS; do
+		(( NTOTAL++ ))
+		TYPE=$(outputQuestionType "$FILE" "$ID")
+
+		if checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"; then
+			RESULT="$CORRECT"
+			(( NCORRECT++ ))
+		else
+			RESULT="$INCORRECT"
+		fi
+
+		echo "$ID $TYPE $RESULT"
+	done
+
+	echo "----------------------"
+	echo "Summary: $NCORRECT / $NTOTAL"
 fi
