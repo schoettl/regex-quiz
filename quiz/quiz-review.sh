@@ -19,15 +19,11 @@ INTERACTIVE=true
 CORRECT="Richtig"
 INCORRECT="Falsch"
 
-clear
-echo "Quiz: $FILE"
-echo "Your answers: $ANSFILE"
-echo -e "----------------------\n"
-
 if $INTERACTIVE; then
 	cat "$ANSFILE" | sort | uniq | \
 	while read -r ID ANS; do
 		TYPE=$(outputQuestionType "$FILE" "$ID")
+		clear
 		echo "ID: $ID"
 		echo "TYPE: $TYPE"
 		echo
@@ -56,7 +52,6 @@ if $INTERACTIVE; then
 			q|Q) exit
 			;;
 		esac
-		clear
 	done
 else
 	cat "$ANSFILE" | sort | uniq | \
@@ -72,9 +67,13 @@ else
 		echo "$ID $TYPE $RESULT"
 	done > "$RESULTFILE"
 
-	cat "$RESULTFILE"
-	echo "----------------------"
 	NTOTAL=$(wc -l < "$RESULTFILE")
 	NCORRECT=$(grep "$CORRECT"\$ "$RESULTFILE" | wc -l)
+
+	echo "Quiz: $FILE"
+	echo "Your answers: $ANSFILE"
+	echo "----------------------"
+	cat "$RESULTFILE"
+	echo "----------------------"
 	echo "Summary: $NCORRECT / $NTOTAL"
 fi
