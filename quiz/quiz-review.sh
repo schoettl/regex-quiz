@@ -10,10 +10,11 @@ source quizlib.sh
 
 FILE="$1"
 ANSFILE="answers.txt"
+RESULTFILE="results.txt"
 
 INTERACTIVE=true
-VERBOSE=false
-SUMMARY=false
+#VERBOSE=false
+#SUMMARY=false
 
 CORRECT="Richtig"
 INCORRECT="Falsch"
@@ -57,4 +58,26 @@ if $INTERACTIVE; then
 		esac
 		clear
 	done
+else
+	cat "$ANSFILE" | sort | uniq | \
+	while read -r ID ANS; do
+		TYPE=$(outputQuestionType "$FILE" "$ID")
+
+		if checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"; then
+			RESULT="$CORRECT"
+		else
+			RESULT="$INCORRECT"
+		fi
+
+		echo "$ID $TYPE $RESULT"
+	done > "$RESULTFILE"
+
+	cat "$RESULTFILE"
+	echo "----------------------"
+	echo -n "Summary: "
+	# Summary mit Awk ausgeben:
+	awk -v correct="$CORRECT" \
+		'{ntotal++; if($3 == correct) ncorrect++}
+		END {print ncorrect " / " ntotal}' \
+		"$RESULTFILE"
 fi
