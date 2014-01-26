@@ -54,8 +54,7 @@ if $INTERACTIVE; then
 
 		read -rp "Weiter (Enter) oder Beenden (q)? " CMD < /dev/tty
 		case "$CMD" in
-			q|Q) exit
-			;;
+			q|Q) exit ;;
 		esac
 	done < "$RESULTFILE"
 else
