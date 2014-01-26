@@ -15,8 +15,9 @@ function outputQuestionID() {
 # param1: quizfile
 # param2: question id
 function outputFullQuestion() {
-	cat "$1" | awk '/^#/{f=0};/^'"$2"'[[:space:]]*$/||f{f=1;print}'
-	# [:space:] ist ein Workaround, wahrscheinlich nötig wegen CRLF
+	awk -v id="$2" '/^#/ {f=0}
+		$0 ~ "^" id "[[:space:]]*$" || f {f=1;print}' "$1"
+	# [:space:] ist ein Workaround falls CRLF im quizfile
 }
 
 # Outputs the question without possible options
