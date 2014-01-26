@@ -1,10 +1,10 @@
 #!/bin/bash
-# ./test/test.sh
+# test/test.sh
 # Aufzurufen aus dem Ordner quiz/ heraus
 # 
-# Führt einige Tests an quiz.sh und quiz-review.sh durch.
+# FÃ¼hrt einige Tests an quiz.sh und quiz-review.sh durch.
 # 
-# Jakob Schöttl
+# Jakob SchÃ¶ttl
 # 
 
 #param1: quiz-input.txt
@@ -42,12 +42,10 @@ function run_test() {
 echo "Running tests"
 echo "----------------"
 
-# Positive test
-echo "Positive test i.e. testing with correct answers"
+echo "Testing with correct answers"
 run_test test/quiz-input.pos.txt 8 8 test/answers-to-compare.pos.txt
 
-# Negative test
-echo "Negative test i.e. testing with wrong answers"
+echo "Testing with wrong answers"
 run_test test/quiz-input.neg.txt 8 0 test/answers-to-compare.neg.txt
 
 echo "----------------"
