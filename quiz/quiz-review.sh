@@ -41,7 +41,7 @@ if $INTERACTIVE; then
 
 		case $TYPE in
 			"[x]"|"(x)") echo "usr sol  (usr: Ihre Antwort, sol: Korrekte Antwort)"
-					outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" ;;
+			             outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" ;;
 			"0/1"|"___") echo "Ihre Antwort: $ANS" ;;
 		esac
 
