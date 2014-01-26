@@ -9,7 +9,7 @@ USAGE="usage: "
 source quizlib.sh
 
 FILE="$1"
-ANSFILE="answers.txt"
+ANSWERFILE="answers.txt"
 RESULTFILE="results.txt"
 
 INTERACTIVE=true
@@ -19,7 +19,7 @@ INTERACTIVE=true
 CORRECT="Richtig"
 INCORRECT="Falsch"
 
-cat "$ANSFILE" | sort | uniq | \
+cat "$ANSWERFILE" | sort | uniq | \
 while read -r ID ANS; do
 	TYPE=$(outputQuestionType "$FILE" "$ID")
 
@@ -62,7 +62,7 @@ else
 	NCORRECT=$(grep "$CORRECT"\$ "$RESULTFILE" | wc -l)
 
 	echo "Quiz: $FILE"
-	echo "Your answers: $ANSFILE"
+	echo "Your answers: $ANSWERFILE"
 	echo "----------------------"
 	cat "$RESULTFILE"
 	echo "----------------------"
