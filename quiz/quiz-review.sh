@@ -8,6 +8,7 @@ source quizlib.sh
 
 FILE="$1"
 ANSFILE="answers.txt"
+RESULTFILE="results.txt"
 
 INTERACTIVE=true
 #VERBOSE=false
@@ -56,24 +57,25 @@ if $INTERACTIVE; then
 		clear
 	done
 else
-	NTOTAL=0
-	NCORRECT=0
-	# BUG: piping into while -> subshell -> changed variables not "exported"
 	cat "$ANSFILE" | sort | uniq | \
 	while read -r ID ANS; do
-		(( NTOTAL++ ))
 		TYPE=$(outputQuestionType "$FILE" "$ID")
 
 		if checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"; then
 			RESULT="$CORRECT"
-			(( NCORRECT++ ))
 		else
 			RESULT="$INCORRECT"
 		fi
 
 		echo "$ID $TYPE $RESULT"
-	done
+	done > "$RESULTFILE"
 
+	cat "$RESULTFILE"
 	echo "----------------------"
-	echo "Summary: $NCORRECT / $NTOTAL"
+	echo -n "Summary: "
+	# Summary mit Awk ausgeben:
+	awk -v correct="$CORRECT" \
+		'{ntotal++; if($3 == correct) ncorrect++}
+		END {print ncorrect " / " ntotal}' \
+		"$RESULTFILE"
 fi
