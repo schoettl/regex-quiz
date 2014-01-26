@@ -74,10 +74,7 @@ else
 
 	cat "$RESULTFILE"
 	echo "----------------------"
-	echo -n "Summary: "
-	# Summary mit Awk ausgeben:
-	awk -v correct="$CORRECT" \
-		'{ntotal++; if($3 == correct) ncorrect++}
-		END {print ncorrect " / " ntotal}' \
-		"$RESULTFILE"
+	NTOTAL=$(wc -l < "$RESULTFILE")
+	NCORRECT=$(grep "$CORRECT"\$ "$RESULTFILE" | wc -l)
+	echo "Summary: $NCORRECT / $NTOTAL"
 fi
