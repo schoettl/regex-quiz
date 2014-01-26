@@ -16,6 +16,8 @@ else
 	FILE="$1"
 fi
 
+ANSFILE="answers.txt"
+
 clear
 echo "Quiz: $FILE"
 echo "(ab Frage Nummer $I)"
@@ -45,7 +47,7 @@ while true; do
 	esac
 
 	read -r ANS
-	echo "$ID $ANS" >> answers.txt
+	echo "$ID $ANS" >> "$ANSFILE"
 
 	clear
 	(( I++ ))
