@@ -19,10 +19,21 @@ INTERACTIVE=true
 CORRECT="Richtig"
 INCORRECT="Falsch"
 
+cat "$ANSFILE" | sort | uniq | \
+while read -r ID ANS; do
+	TYPE=$(outputQuestionType "$FILE" "$ID")
+
+	if checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"; then
+		RESULT="$CORRECT"
+	else
+		RESULT="$INCORRECT"
+	fi
+
+	echo "$ID $TYPE $RESULT"
+done > "$RESULTFILE"
+
 if $INTERACTIVE; then
-	cat "$ANSFILE" | sort | uniq | \
-	while read -r ID ANS; do
-		TYPE=$(outputQuestionType "$FILE" "$ID")
+	while read -r ID TYPE RESULT; do
 		clear
 		echo "ID: $ID"
 		echo "TYPE: $TYPE"
@@ -34,14 +45,8 @@ if $INTERACTIVE; then
 			"0/1"|"___") echo "Ihre Antwort: $ANS" ;;
 		esac
 
-		echo
-		if checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"; then
-			echo $CORRECT
-		else
-			echo $INCORRECT
-		fi
+		echo -e "\n$RESULT\n"
 
-		echo
 		outputExplanation "$FILE" "$ID"
 
 		echo "(Vermeintliche) Fehler :P gerne formlos melden an"
@@ -52,21 +57,8 @@ if $INTERACTIVE; then
 			q|Q) exit
 			;;
 		esac
-	done
+	done < "$RESULTFILE"
 else
-	cat "$ANSFILE" | sort | uniq | \
-	while read -r ID ANS; do
-		TYPE=$(outputQuestionType "$FILE" "$ID")
-
-		if checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"; then
-			RESULT="$CORRECT"
-		else
-			RESULT="$INCORRECT"
-		fi
-
-		echo "$ID $TYPE $RESULT"
-	done > "$RESULTFILE"
-
 	NTOTAL=$(wc -l < "$RESULTFILE")
 	NCORRECT=$(grep "$CORRECT"\$ "$RESULTFILE" | wc -l)
 
