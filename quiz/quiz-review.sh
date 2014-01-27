@@ -59,7 +59,7 @@ if $INTERACTIVE; then
 	done < "$RESULTFILE"
 else
 	NTOTAL=$(wc -l < "$RESULTFILE")
-	NCORRECT=$(grep "$CORRECT"\$ "$RESULTFILE" | wc -l)
+	NCORRECT=$(grep -c "$CORRECT"\$ "$RESULTFILE")
 
 	echo "Quiz: $FILE"
 	echo "Your answers: $ANSWERFILE"
