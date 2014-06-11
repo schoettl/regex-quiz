@@ -1,10 +1,9 @@
 #!/bin/bash
-# quiz-review.sh quizfile
 # 
 # Jakob Schöttl
 # 
 
-USAGE="usage: "
+USAGE="usage: quiz-review [ OPTIONS ] QUIZFILE"
 
 source quizlib.sh
 

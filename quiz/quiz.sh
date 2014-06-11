@@ -1,10 +1,9 @@
 #!/bin/bash
-# quiz.sh [ first_question_number ] quizfile
 #
 # Jakob Schöttl
 #
 
-USAGE="usage: "
+USAGE="usage: quiz [ OPTIONS ] QUIZFILE"
 
 source quizlib.sh
 
