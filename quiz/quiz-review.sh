@@ -58,7 +58,7 @@ if $INTERACTIVE; then
 		esac
 	done < "$RESULTFILE"
 else
-	NTOTAL=$(wc -l < "$RESULTFILE")
+	NTOTAL=$(awk 'END{print NR}' "$RESULTFILE")
 	NCORRECT=$(grep -c "$CORRECT"\$ "$RESULTFILE")
 
 	echo "Quiz: $FILE"
