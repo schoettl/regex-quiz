@@ -1,7 +1,3 @@
-[[:...:]] in PCRE (grep -P ...)? OK in GNU grep
-* without preceding char? OK in GNU grep, sed, awk, vim
-___ /RE/ -> RE muss verankert werden mit ^RE$
-GNU awk erforderlich!
 
 2013-12-11 Mi, 17:56 MG
 * are there systems with tput but no clear?? -> then replace `clear` with `tput clear`
@@ -9,8 +5,10 @@ GNU awk erforderlich!
   ./quiz-review.sh quizfile.txt  answers.txt [answers2.txt ...]
 * Konsequenterweise dann auch Option --answerfile (oder so) für quiz.sh, mit default...
   ./quiz.sh --answerfile=answers.txt quizfile.txt
-* review: -s for 'short' or 'summary': pro Zeile ok or nope, am Ende k von n.
 * "prompt" mit "invert" ( bold=`tput smso`; offbold=`tput rmso`;  prompt="${bold}..${offbold} "
 
-* usage etc... for quiz.sh and review
 * oder andersrum besser: review defaults to -s, otherwise use -v or even -i (interactive, add backspace to go back)
+
+Notizen zu REs und Tools:
+[[:...:]] in PCRE (grep -P ...)? OK in GNU grep
+* without preceding char? OK in GNU grep, sed, awk, vim
