@@ -46,6 +46,7 @@ function getOptions() {
 CORRECT="Richtig"
 INCORRECT="Falsch"
 
+assertDependencies
 getOptions $@
 
 cat "$ANSWERFILE" | sort | uniq | \

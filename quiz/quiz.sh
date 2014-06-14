@@ -37,6 +37,7 @@ function getOptions() {
 	fi
 }
 
+assertDependencies
 getOptions $@
 
 clear

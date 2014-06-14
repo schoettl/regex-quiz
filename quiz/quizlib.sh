@@ -11,6 +11,13 @@ function exitWithError() {
 	exit 1
 }
 
+function assertDependencies() {
+	bash --version | grep -E 'version [3-9]\.[[:digit:]]+\.[[:digit:]]+' > /dev/null \
+		|| exitWithError "error: Bash version 3 or newer required"
+	gawk --version | grep '^GNU Awk' > /dev/null \
+		|| exitWithError "error: GNU Awk required"
+}
+
 # Output the ID of the specified question
 # param1: quizfile
 # param2: question number (>= 1)
