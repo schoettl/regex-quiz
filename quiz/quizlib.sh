@@ -4,14 +4,21 @@
 # Jakob Schöttl
 # 
 
-# Outputs the ID of the specified question
+# Exit the script with a message and status code 1
+# param1: error message
+function exitWithError() {
+	echo "$1" >&2
+	exit 1
+}
+
+# Output the ID of the specified question
 # param1: quizfile
 # param2: question number (>= 1)
 function outputQuestionID() {
 	grep '^#' "$1" | awk "NR==$2"
 }
 
-# Outputs a full question from the quizfile
+# Output a full question from the quizfile
 # param1: quizfile
 # param2: question id
 function outputFullQuestion() {
@@ -20,7 +27,7 @@ function outputFullQuestion() {
 	# [:space:] ist ein Workaround falls CRLF im quizfile
 }
 
-# Outputs the question without possible options
+# Output the question without possible options
 # param1: quizfile
 # param2: question id
 function outputQuestionOnly() {
@@ -28,7 +35,7 @@ function outputQuestionOnly() {
 	awk '/^(\[[_x]\]|\([_x]\)|___|0\/1)/{exit}; NR>2 {print}'
 }
 
-# Outputs the explanation (for the answer(s))
+# Output the explanation (for the answer(s))
 # param1: quizfile
 # param2: question id
 function outputExplanation() {
@@ -39,7 +46,7 @@ function outputExplanation() {
 	# Options or answer, followed by blank line -> explanation comes next
 }
 
-# Outputs the type i.e. one of "[x]", "(x)", "0/1", "___"
+# Output the type i.e. one of "[x]", "(x)", "0/1", "___"
 # param1: quizfile
 # param2: question id
 function outputQuestionType() {
@@ -50,7 +57,7 @@ function outputQuestionType() {
 	     /^___/      {print "___"; exit}'
 }
 
-# Outputs the options if type is one of "[x]", "(x)"
+# Output the options if type is one of "[x]", "(x)"
 # param1: quizfile
 # param2: question id
 function outputOptions() {
@@ -59,7 +66,7 @@ function outputOptions() {
 	     /^\([_x]\)/'
 }
 
-# Outputs the answer if type is one of "0/1", "___"
+# Output the answer if type is one of "0/1", "___"
 # "0" or "1" for type "0/1", RE for type "___"
 # param1: quizfile
 # param2: question id
@@ -69,7 +76,7 @@ function outputAnswer() {
 	     /^___/ {sub(/^___[[:space:]]+/, ""); $0=gensub(/^\/(.*)\//, "\\1", "g"); gsub(/\\\//, "/"); print; exit}'
 }
 
-# Outputs both user and correct answer for types of "[x]", "(x)"
+# Output both user and correct answer for types of "[x]", "(x)"
 # param1: quizfile
 # param2: question id
 # param3: question type
@@ -82,7 +89,7 @@ function outputOptionsAnswered() {
 		 {i++; if(inArray(ansarr,i)) check="x"; else check="_"; print l check r " " $0}'
 }
 
-# Outputs the options clearing the answer crosses ("x")
+# Output the options clearing the answer crosses ("x")
 # param1: quizfile
 # param2: question id
 function outputOptionsWithoutAnswers() {

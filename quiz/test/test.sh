@@ -15,8 +15,8 @@ function run_test() {
 	rm -f answers.txt~
 	mv answers.txt answers.txt~
 
-	./quiz.sh        test/quizfile.txt < "$1"                       > /dev/null
-	./quiz-review.sh test/quizfile.txt < test/quiz-review-input.txt > test/quiz-review-output.txt
+	./quiz.sh           test/quizfile.txt < "$1"                       > /dev/null
+	./quiz-review.sh -i test/quizfile.txt < test/quiz-review-input.txt > test/quiz-review-output.txt
 
 	rm answers.txt
 	mv answers.txt~ answers.txt

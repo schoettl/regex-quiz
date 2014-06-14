@@ -1,22 +1,52 @@
 #!/bin/bash
+# See the results of the answered quiz questions
 # 
 # Jakob Schöttl
 # 
 
-USAGE="usage: quiz-review [ OPTIONS ] QUIZFILE"
+USAGE="usage: quiz-review.sh [ OPTIONS ] QUIZFILE
+
+  -s  Output a short one-line summary of the quiz results
+  -i  Interactive review of quiz questions and answers
+  -a ANSWERFILE  Specify the file where the answers are written down
+      [default: answers.txt]
+  -r RESULTFILE  Specify the file where to write down the results of
+      the quiz questions and answers [default: results.txt]
+  -h  Print this usage message"
 
 source quizlib.sh
 
-FILE="$1"
-ANSWERFILE="answers.txt"
-RESULTFILE="results.txt"
+function getOptions() {
+	# default values for options
+	INTERACTIVE=false
+	SHORT=false
+	ANSWERFILE="answers.txt"
+	RESULTFILE="results.txt"
 
-INTERACTIVE=true
-#VERBOSE=false
-#SUMMARY=false
+	# opions: help, interactive, short, answerfile, resultfile
+	while getopts "hisa:r:" OPTION; do
+		case $OPTION in
+			i) INTERACTIVE=true ;;
+			s) SHORT=true ;;
+			a) ANSWERFILE="$OPTARG" ;;
+			r) RESULTFILE="$OPTARG" ;;
+			h) echo "$USAGE" && exit ;;
+			\?) exitWithError "For usage see 'quiz -h'" ;;
+		esac
+	done
+
+	# get arguments
+	shift $(($OPTIND-1))
+	FILE="$1"
+	if [ -z "$FILE" ]; then
+		exitWithError "$USAGE"
+	fi
+}
 
 CORRECT="Richtig"
 INCORRECT="Falsch"
+
+getOptions $@
 
 cat "$ANSWERFILE" | sort | uniq | \
 while read -r ID ANS; do
@@ -60,10 +90,14 @@ else
 	NTOTAL=$(awk 'END{print NR}' "$RESULTFILE")
 	NCORRECT=$(grep -c "$CORRECT"\$ "$RESULTFILE")
 
-	echo "Quiz: $FILE"
-	echo "Your answers: $ANSWERFILE"
-	echo "----------------------"
-	cat "$RESULTFILE"
-	echo "----------------------"
-	echo "Summary: $NCORRECT / $NTOTAL"
+	if $SHORT; then
+		echo "$NCORRECT / $NTOTAL"
+	else
+		echo "Quiz: $FILE"
+		echo "Your answers: $ANSWERFILE"
+		echo "----------------------"
+		cat "$RESULTFILE"
+		echo "----------------------"
+		echo "Summary: $NCORRECT / $NTOTAL"
+	fi
 fi
