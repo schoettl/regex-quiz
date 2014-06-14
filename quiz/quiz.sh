@@ -17,12 +17,12 @@ source quizlib.sh
 function getOptions() {
 	# default values for options
 	ANSFILE="answers.txt"
-	I=1
+	NUMBER=1
 
 	# opions: help, firstquestion, answerfile
 	while getopts "hi:a:" OPTION; do
 		case $OPTION in
-			i) I="$OPTARG" ;;
+			i) NUMBER="$OPTARG" ;;
 			a) ANSFILE="$OPTARG" ;;
 			h) echo "$USAGE" && exit ;;
 			\?) exitWithError "For usage see 'quiz -h'" ;;
@@ -41,11 +41,11 @@ getOptions $@
 
 clear
 echo "Quiz: $FILE"
-echo "(ab Frage Nummer $I)"
+echo "(ab Frage Nummer $NUMBER)"
 echo -e "----------------------\n"
 
 while true; do
-	ID=$(outputQuestionID "$FILE" "$I")
+	ID=$(outputQuestionID "$FILE" "$NUMBER")
 	if [ -z $ID ]; then
 		break
 	fi
@@ -71,5 +71,5 @@ while true; do
 	echo "$ID $ANS" >> "$ANSFILE"
 
 	clear
-	(( I++ ))
+	(( NUMBER++ ))
 done
