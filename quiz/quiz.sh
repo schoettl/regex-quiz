@@ -4,7 +4,7 @@
 # Jakob Schöttl
 #
 
-USAGE="usage: quiz.sh [ OPTIONS ] QUIZFILE
+USAGE="usage: ${0##*/} [ OPTIONS ] QUIZFILE
 
   -i NUMBER  Specify from wich question the quiz should start
       [default: 1 (first question)]

@@ -4,7 +4,7 @@
 # Jakob Schöttl
 # 
 
-USAGE="usage: quiz-review.sh [ OPTIONS ] QUIZFILE
+USAGE="usage: ${0##*/} [ OPTIONS ] QUIZFILE
 
   -s  Output a short one-line summary of the quiz results
   -i  Interactive review of quiz questions and answers
