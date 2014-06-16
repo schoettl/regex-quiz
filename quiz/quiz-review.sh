@@ -68,7 +68,7 @@ if $INTERACTIVE; then
 			             outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" ;;
 			"0/1"|"___") echo "Ihre Antwort: $ANS" ;;
 			"_i_") diff -p \
-				<(outputClozeWithAnswers "$FILE" "$ID" "$ANS" | fillCloze "$FILE" "$ID")
+				<(outputClozeWithAnswers "$FILE" "$ID" "$ANS" | fillCloze "$FILE" "$ID") \
 				<(outputClozeOriginal "$FILE" "$ID" | fillCloze "$FILE" "$ID")
 				;;
 		esac
@@ -92,7 +92,7 @@ if $INTERACTIVE; then
 	done < "$RESULTFILE"
 else
 	NTOTAL=$(awk 'END{print NR}' "$RESULTFILE")
-	NCORRECT=$(grep -c "$CORRECT"\$ "$RESULTFILE")
+	NCORRECT=$(grep -c "1$" "$RESULTFILE")
 
 	if $SHORT; then
 		echo "$NCORRECT / $NTOTAL"

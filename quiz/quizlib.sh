@@ -39,7 +39,7 @@ function outputFullQuestion() {
 # param2: question id
 function outputQuestionOnly() {
 	outputFullQuestion "$1" "$2" | \
-	awk '/^(\[[_x]\]|\([_x]\)|___|0\/1|_i_)/{exit}; NR>2 {print}'
+	awk '/^(\[[_x]\]|\([_x]\)|___|0\/1|_[[:digit:]]_)/{exit}; NR>2 {print}'
 }
 
 # Output the explanation (for the answer(s))
