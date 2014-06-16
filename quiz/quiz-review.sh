@@ -100,7 +100,7 @@ else
 		echo "Quiz: $FILE"
 		echo "Your answers: $ANSWERFILE"
 		echo "----------------------"
-		cat "$RESULTFILE"
+		cat "$RESULTFILE" | awk '{printf "%-10s %s   %s\n", $1, $2, $3}' | sed 's/0$/Falsch/;s/1$/Richtig/'
 		echo "----------------------"
 		echo "Summary: $NCORRECT / $NTOTAL"
 	fi
