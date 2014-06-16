@@ -6,8 +6,10 @@
 
 USAGE="usage: ${0##*/} [ OPTIONS ] QUIZFILE
 
-  -i NUMBER  Specify from wich question the quiz should start
+  -n NUMBER  Specify from which question the quiz should start
       [default: 1 (first question)]
+  -i ID  Specify from which question the quiz should start (by ID)
+      [default: first question]
   -a ANSWERFILE  Specify the file where to write down the answers
       [default: answers.txt]
   -h  Print this usage message"
@@ -18,11 +20,14 @@ function getOptions() {
 	# default values for options
 	ANSFILE="answers.txt"
 	NUMBER=1
+	STARTED=true
 
 	# opions: help, firstquestion, answerfile
-	while getopts "hi:a:" OPTION; do
+	while getopts "hn:i:a:" OPTION; do
 		case $OPTION in
-			i) NUMBER="$OPTARG" ;;
+			n) NUMBER="$OPTARG" ;;
+			i) STARTID="$OPTARG"
+			   STARTED=false ;;
 			a) ANSFILE="$OPTARG" ;;
 			h) echo "$USAGE" && exit ;;
 			\?) exitWithError "For usage see 'quiz -h'" ;;
@@ -42,7 +47,11 @@ getOptions $@
 
 clear
 echo "Quiz: $FILE"
-echo "(ab Frage Nummer $NUMBER)"
+if $STARTED; then
+	echo "(ab Frage Nummer $NUMBER)"
+else
+	echo "(ab Frage mit ID $STARTID)"
+fi
 echo -e "----------------------\n"
 
 while true; do
@@ -50,6 +59,16 @@ while true; do
 	if [ -z $ID ]; then
 		break
 	fi
+	# ^ nicer would be to check exit status of outputQuestionID instead
+	(( NUMBER++ ))
+
+	# start with question by id (if specified)
+	if [[ $ID == $STARTID ]]; then
+		STARTED=true
+	fi
+	# skip question if not started
+	$STARTED || continue
+
 	TYPE=$(outputQuestionType "$FILE" "$ID")
 	echo "ID: $ID"
 	echo "TYPE: $TYPE"
@@ -77,5 +96,4 @@ while true; do
 	echo "$ID $ANS" >> "$ANSFILE"
 
 	clear
-	(( NUMBER++ ))
 done
