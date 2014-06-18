@@ -43,9 +43,6 @@ function getOptions() {
 	fi
 }
 
-CORRECT="Richtig"
-INCORRECT="Falsch"
-
 assertDependencies
 getOptions $@
 
@@ -53,11 +50,8 @@ cat "$ANSWERFILE" | sort | uniq | \
 while read -r ID ANS; do
 	TYPE=$(outputQuestionType "$FILE" "$ID")
 
-	if checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"; then
-		RESULT="$CORRECT"
-	else
-		RESULT="$INCORRECT"
-	fi
+	! checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"
+	RESULT=$?
 
 	echo "$ID $TYPE $RESULT"
 done > "$RESULTFILE"
@@ -75,7 +69,12 @@ if $INTERACTIVE; then
 			"0/1"|"___") echo "Ihre Antwort: $ANS" ;;
 		esac
 
-		echo -e "\n$RESULT\n"
+		if (( $RESULT )); then
+			RESPONSE="Richtig"
+		else
+			RESPONSE="Falsch"
+		fi
+		echo -e "\n$RESPONSE\n"
 
 		outputExplanation "$FILE" "$ID"
 
