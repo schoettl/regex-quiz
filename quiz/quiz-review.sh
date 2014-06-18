@@ -43,9 +43,6 @@ function getOptions() {
 	fi
 }
 
-CORRECT="Richtig"
-INCORRECT="Falsch"
-
 assertDependencies
 getOptions $@
 
@@ -53,11 +50,8 @@ cat "$ANSWERFILE" | sort | uniq | \
 while read -r ID ANS; do
 	TYPE=$(outputQuestionType "$FILE" "$ID")
 
-	if checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"; then
-		RESULT="$CORRECT"
-	else
-		RESULT="$INCORRECT"
-	fi
+	! checkAnswer "$FILE" "$ID" "$TYPE" "$ANS"
+	RESULT=$?
 
 	echo "$ID $TYPE $RESULT"
 done > "$RESULTFILE"
@@ -69,15 +63,27 @@ if $INTERACTIVE; then
 		echo "TYPE: $TYPE"
 		echo
 
+		# Oh, $ANS war ja gar nicht definiert... quick & dirty:
+		ANS=$(grep "^$ID " "$ANSWERFILE" | sed "s/^$ID //")
+
 		case $TYPE in
 			"[x]"|"(x)") echo "usr sol  (usr: Ihre Antwort, sol: Korrekte Antwort)"
 			             outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" ;;
 			"0/1"|"___") echo "Ihre Antwort: $ANS" ;;
+			"_i_") wdiff \
+			        <(outputClozeWithAnswers "$FILE" "$ID" "$ANS" | fillCloze "$FILE" "$ID") \
+			        <(outputClozeOriginal "$FILE" "$ID" | fillCloze "$FILE" "$ID")
+			       ;;
 		esac
 
-		echo -e "\n$RESULT\n"
+		if (( $RESULT )); then
+			RESPONSE="Richtig"
+		else
+			RESPONSE="Falsch"
+		fi
+		echo -e "\n$RESPONSE\n"
 
-		outputExplanation "$FILE" "$ID"
+		outputExplanation "$FILE" "$ID" "$TYPE"
 
 		echo "(Vermeintliche) Fehler :P gerne formlos melden an"
 		echo -e "Jakob Schöttl <jschoett@gmail.com>\n"
@@ -89,7 +95,7 @@ if $INTERACTIVE; then
 	done < "$RESULTFILE"
 else
 	NTOTAL=$(awk 'END{print NR}' "$RESULTFILE")
-	NCORRECT=$(grep -c "$CORRECT"\$ "$RESULTFILE")
+	NCORRECT=$(grep -c "1$" "$RESULTFILE")
 
 	if $SHORT; then
 		echo "$NCORRECT / $NTOTAL"
@@ -97,7 +103,7 @@ else
 		echo "Quiz: $FILE"
 		echo "Your answers: $ANSWERFILE"
 		echo "----------------------"
-		cat "$RESULTFILE"
+		cat "$RESULTFILE" | awk '{printf "%-10s %s   %s\n", $1, $2, $3}' | sed 's/0$/Falsch/;s/1$/Richtig/'
 		echo "----------------------"
 		echo "Summary: $NCORRECT / $NTOTAL"
 	fi

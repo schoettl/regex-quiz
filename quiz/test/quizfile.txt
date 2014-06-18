@@ -85,3 +85,32 @@ Jemand versucht ein großes Logfile mit `grep -F '[2013-11-'` zu durchsuchen.  W
 0/1 0
 
 Nein, der Aufruf von grep ist korrekt: Durch die Option `-F`, `--fixed-strings` (oder auch "fast") wird der Parameter *nicht* als Regulärer Ausdruck interpretiert, sondern als feste Zeichenkette, nach der gesucht wird.  Daher gibt es auch keinen Syntaxfehler wegen der öffnenden eckigen Klammer.
+
+#RE-9
+
+Es geht um nichts besonderes.  Füllen Sie die Lücken mit folgenden Wörtern.
+
+_1_ Erstens
+_3_ Atrio
+_4_ normalerweise
+_0_ irgenwas
+_2_ AV-Knoten
+
+_1_ ist der sekundäre Frequenzgeber des Herzens _4_ der _3_ventricular Node (_2_).  Zweitens macht dieser Text gar keinen Sinn.
+Dann noch _0_ zum Schluss.  "_0_" kann übrigens auch mehrfach vorkommen!
+
+Und hier eine Erklärung zum Lückentext (engl. cloze).
+
+Jetzt ist alles klar!  Beliebiges Markdown (abgesehen von den üblichen Eingrenzungen).
+
+#RE-10
+
+Hier ein Lückentext als Liste (kann genauso gut &lt;ul> sein).
+
+_1_ foo
+_2_ bar
+
+ 1. foo-_2_
+ 2. _1_ bar
+
+... und der Loesungstext.

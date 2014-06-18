@@ -43,10 +43,10 @@ echo "Running tests"
 echo "----------------"
 
 echo "Testing with correct answers"
-run_test test/quiz-input.pos.txt 8 8 test/answers-to-compare.pos.txt
+run_test test/quiz-input.pos.txt 10 10 test/answers-to-compare.pos.txt
 
 echo "Testing with wrong answers"
-run_test test/quiz-input.neg.txt 8 0 test/answers-to-compare.neg.txt
+run_test test/quiz-input.neg.txt 10 0 test/answers-to-compare.neg.txt
 
 echo "----------------"
 echo "Tests complete"
