@@ -80,7 +80,7 @@ if $INTERACTIVE; then
 		fi
 		echo -e "\n$RESPONSE\n"
 
-		outputExplanation "$FILE" "$ID"
+		outputExplanation "$FILE" "$ID" "$TYPE"
 
 		echo "(Vermeintliche) Fehler :P gerne formlos melden an"
 		echo -e "Jakob Schöttl <jschoett@gmail.com>\n"

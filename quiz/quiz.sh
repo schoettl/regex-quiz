@@ -55,11 +55,7 @@ fi
 echo -e "----------------------\n"
 
 while true; do
-	ID=$(outputQuestionID "$FILE" "$NUMBER")
-	if [ -z $ID ]; then
-		break
-	fi
-	# ^ nicer would be to check exit status of outputQuestionID instead
+	ID=$(outputQuestionID "$FILE" "$NUMBER") || break
 	(( NUMBER++ ))
 
 	# start with question by id (if specified)

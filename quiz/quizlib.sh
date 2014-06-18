@@ -19,10 +19,11 @@ function assertDependencies() {
 }
 
 # Output the ID of the specified question
+# return: 0 -> found, 1 -> not found
 # param1: quizfile
 # param2: question number (>= 1)
 function outputQuestionID() {
-	grep '^#' "$1" | awk "NR==$2"
+	grep '^#' "$1" | awk "NR==$2" | grep .
 }
 
 # Output a full question from the quizfile
@@ -45,12 +46,24 @@ function outputQuestionOnly() {
 # Output the explanation (for the answer(s))
 # param1: quizfile
 # param2: question id
+# param3: question type
 function outputExplanation() {
-	outputFullQuestion "$1" "$2" | \
-	awk '/^(\[[_x]\]|\([_x]\)|___|0\/1)/ {f=1}
-	     /^[[:space:]]*$/ && f {f=0; g=1; next}
-	     g {print}'
-	# Options or answer, followed by blank line -> explanation comes next
+	case $3 in
+		"_i_")
+			echo "explanation for q type _i_"
+			outputFullQuestion "$1" "$2" | \
+			awk '/^_[[:digit:]]_/ {f=1}
+			     /^[[:space:]]*$/ && f {f=0; g=1; next}
+			     g {print}'
+			;;
+		*)
+			outputFullQuestion "$1" "$2" | \
+			awk '/^(\[[_x]\]|\([_x]\)|___|0\/1)/ {f=1}
+			     /^[[:space:]]*$/ && f {f=0; g=1; next}
+			     g {print}'
+			# Options or answer, followed by blank line -> explanation comes next
+			;;
+	esac
 }
 
 # Output the type i.e. one of "[x]", "(x)", "0/1", "___", "_i_"
