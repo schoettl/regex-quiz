@@ -16,7 +16,7 @@ function assertDependencies() {
 		|| exitWithError "error: Bash version 3 or newer required"
 	gawk --version | grep -q '^GNU Awk' \
 		|| exitWithError "error: GNU Awk required"
-	wdiff --version \
+	wdiff --version >/dev/null \
 		|| exitWithError "error: wdiff required"
 }
 
