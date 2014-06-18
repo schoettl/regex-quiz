@@ -116,8 +116,7 @@ function checkAnswer() {
 	ANS="$4"
 	case $TYPE in
 		"[x]"|"(x)") ! outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
-				grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})' > \
-				/dev/null ;;
+				grep -qvE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})' ;;
 		"0/1")  [ $ANS == $(outputAnswer "$FILE" "$ID") ]  ;;
 		"___") [[ $ANS =~ $(outputAnswer "$FILE" "$ID") ]] ;;
 	esac
