@@ -63,6 +63,9 @@ if $INTERACTIVE; then
 		echo "TYPE: $TYPE"
 		echo
 
+		# Oh, $ANS war ja gar nicht definiert... quick & dirty:
+		ANS=$(grep "^$ID " "$ANSWERFILE" | sed "s/^$ID //")
+
 		case $TYPE in
 			"[x]"|"(x)") echo "usr sol  (usr: Ihre Antwort, sol: Korrekte Antwort)"
 			             outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" ;;
