@@ -42,7 +42,7 @@ function outputFullQuestion() {
 # param2: question id
 function outputQuestionOnly() {
 	outputFullQuestion "$1" "$2" | \
-	awk '/^(\[[_x]\]|\([_x]\)|___|0\/1|_[[:digit:]]_)/{exit}; NR>2 {print}'
+	awk '/^(\[[_x]\]|\([_x]\)|___|0\/1|_[[:digit:]]_)/{exit}; NR>2'
 }
 
 # Output the explanation (for the answer(s))
@@ -52,17 +52,16 @@ function outputQuestionOnly() {
 function outputExplanation() {
 	case $3 in
 		"_i_")
-			echo "explanation for q type _i_"
 			outputFullQuestion "$1" "$2" | \
 			awk '/^_[[:digit:]]_/ {f=1}
-			     /^[[:space:]]*$/ && f {f=0; g=1; next}
-			     g {print}'
+			     /^[[:space:]]*$/ && f {if(c++==1) next}
+			     c>1'
 			;;
 		*)
 			outputFullQuestion "$1" "$2" | \
 			awk '/^(\[[_x]\]|\([_x]\)|___|0\/1)/ {f=1}
 			     /^[[:space:]]*$/ && f {f=0; g=1; next}
-			     g {print}'
+			     g'
 			# Options or answer, followed by blank line -> explanation comes next
 			;;
 	esac
