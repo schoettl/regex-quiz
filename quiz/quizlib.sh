@@ -207,8 +207,8 @@ function checkAnswer() {
 				grep -qvE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})' ;;
 		"0/1")  [ $ANS == $(outputAnswer "$FILE" "$ID") ]  ;;
 		"___") [[ $ANS =~ $(outputAnswer "$FILE" "$ID") ]] ;;
-		"_i_") ! cmp -s \
-					<(outputClozeOriginal "$FILE" "$ID" | fillCloze "$FILE" "$ID") \
-					<(outputClozeWithAnswers "$FILE" "$ID" "$ANS" | fillCloze "$FILE" "$ID") ;;
+		"_i_") cmp -s \
+		        <(outputClozeOriginal "$FILE" "$ID" | fillCloze "$FILE" "$ID") \
+		        <(outputClozeWithAnswers "$FILE" "$ID" "$ANS" | fillCloze "$FILE" "$ID") ;;
 	esac
 }
