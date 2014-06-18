@@ -110,6 +110,10 @@ function outputOptionsWithoutAnswers() {
 # param3: question type
 # param4: user answer
 function checkAnswer() {
+	FILE="$1"
+	ID="$2"
+	TYPE="$3"
+	ANS="$4"
 	case $TYPE in
 		"[x]"|"(x)") ! outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" | \
 				grep -vE '^((\[_\] +){2}|(\[x\] +){2}|(\(_\) +){2}|(\(x\) +){2})' > \
