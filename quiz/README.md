@@ -12,7 +12,7 @@ Die Quiz-Software besteht aus zwei Bash-Scripts, die ein drittes als Library ver
 
 Zuerst sollten Sie sicherstellen, dass Sie mit Ihrer Shell im richtigen Verzeichnis sind:
 
-    cd ~/learn-regex/quiz
+    cd ~/regex-quiz/quiz
 
 Nun können Sie das Quiz starten (Abbrechen/Beenden mit Strg + C):
 
@@ -20,17 +20,22 @@ Nun können Sie das Quiz starten (Abbrechen/Beenden mit Strg + C):
 
 Falls Sie aber schon die ersten 8 Aufgaben gemacht haben und mit der neunten Aufgabe beginnen wollen:
 
-    ./quiz.sh 9 quizfile.txt
+    ./quiz.sh -n9 quizfile.txt
 
 Ihre Antworten werden in der Datei `answers.txt` gespeichert.  Existiert die Datei bereits, werden die Antworten hinten angehängt.
 
-Zum Kontrollieren Ihrer Antworten:
+Zum interaktiven Kontrollieren Ihrer Antworten:
 
-    ./quiz-review.sh quizfile.txt
+    ./quiz-review.sh -i quizfile.txt
 
 Um Ihre Antworten zu löschen und von vorne zu beginnen:
 
     rm answers.txt
+
+Weitere Optionen zum Aufruf der Programme kann man sich mit der Option `-h` anzeigen lassen:
+
+    ./quiz.sh -h
+    ./quiz-review.sh -h
 
 Bemerkungen
 -----------
