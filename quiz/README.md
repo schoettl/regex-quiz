@@ -53,10 +53,11 @@ Dependencies
 
 The quiz requires at least Bash version 3 for the Conditional Construct `[[...]]`
 
+The quiz requires GNU Awk and wdiff.
 
-The quiz requires GNU Awk.  To install it with APT:
+To install them with APT:
 
-    sudo apt-get -y install gawk
+    sudo apt-get -y install gawk wdiff
 
 Bugs
 ----
