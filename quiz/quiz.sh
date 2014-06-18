@@ -66,6 +66,11 @@ while true; do
 		       ;;
 		"___") echo "Bitte geben Sie Ihre Antwort ein:"
 		       ;;
+		"_i_") outputClozeWords "$FILE" "$ID"
+		       echo
+		       outputClozeCleared "$FILE" "$ID"
+		       echo -e "\nBitte geben Sie die Nummern der richtigen Antworten ein (space-separated):"
+		       ;;
 	esac
 
 	read -r ANS
