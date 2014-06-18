@@ -12,7 +12,7 @@ function exitWithError() {
 }
 
 function assertDependencies() {
-	bash --version | grep -qE 'version [3-9]\.[[:digit:]]+\.[[:digit:]]+' \
+	bash --version | grep -qE 'version ([3-9]|[[:digit:]]{2,})\.[[:digit:]]+\.[[:digit:]]+' \
 		|| exitWithError "error: Bash version 3 or newer required"
 	gawk --version | grep -q '^GNU Awk' \
 		|| exitWithError "error: GNU Awk required"
