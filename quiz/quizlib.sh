@@ -16,6 +16,8 @@ function assertDependencies() {
 		|| exitWithError "error: Bash version 3 or newer required"
 	gawk --version | grep -q '^GNU Awk' \
 		|| exitWithError "error: GNU Awk required"
+	wdiff --version \
+		|| exitWithError "error: wdiff required"
 }
 
 # Output the ID of the specified question

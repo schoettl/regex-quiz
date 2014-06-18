@@ -70,10 +70,10 @@ if $INTERACTIVE; then
 			"[x]"|"(x)") echo "usr sol  (usr: Ihre Antwort, sol: Korrekte Antwort)"
 			             outputOptionsAnswered "$FILE" "$ID" "$TYPE" "$ANS" ;;
 			"0/1"|"___") echo "Ihre Antwort: $ANS" ;;
-			"_i_") diff -p \
-				<(outputClozeWithAnswers "$FILE" "$ID" "$ANS" | fillCloze "$FILE" "$ID") \
-				<(outputClozeOriginal "$FILE" "$ID" | fillCloze "$FILE" "$ID")
-				;;
+			"_i_") wdiff \
+			        <(outputClozeWithAnswers "$FILE" "$ID" "$ANS" | fillCloze "$FILE" "$ID") \
+			        <(outputClozeOriginal "$FILE" "$ID" | fillCloze "$FILE" "$ID")
+			       ;;
 		esac
 
 		if (( $RESULT )); then
