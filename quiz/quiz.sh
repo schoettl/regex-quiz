@@ -14,9 +14,10 @@ USAGE="usage: ${0##*/} [ OPTIONS ] QUIZFILE
       [default: answers.txt]
   -h  Print this usage message"
 
+# shellcheck disable=SC1091
 source quizlib.sh
 
-function getOptions() {
+getOptions() {
 	# default values for options
 	ANSFILE="answers.txt"
 	NUMBER=1
@@ -35,7 +36,7 @@ function getOptions() {
 	done
 
 	# get arguments
-	shift $(($OPTIND-1))
+	shift $((OPTIND-1))
 	FILE="$1"
 	if [ -z "$FILE" ]; then
 		exitWithError "$USAGE"
@@ -43,7 +44,7 @@ function getOptions() {
 }
 
 assertDependencies
-getOptions $@
+getOptions "$@"
 
 clear
 echo "Quiz: $FILE"
@@ -59,7 +60,7 @@ while true; do
 	(( NUMBER++ ))
 
 	# start with question by id (if specified)
-	if [[ $ID == $STARTID ]]; then
+	if [[ $ID == "$STARTID" ]]; then
 		STARTED=true
 	fi
 	# skip question if not started

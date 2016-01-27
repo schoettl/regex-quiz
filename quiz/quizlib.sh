@@ -6,12 +6,12 @@
 
 # Exit the script with a message and status code 1
 # param1: error message
-function exitWithError() {
+exitWithError() {
 	echo "$1" >&2
 	exit 1
 }
 
-function assertDependencies() {
+assertDependencies() {
 	bash --version | grep -qE 'version ([3-9]|[[:digit:]]{2,})\.[[:digit:]]+\.[[:digit:]]+' \
 		|| exitWithError "error: Bash version 3 or newer required"
 	gawk --version | grep -q '^GNU Awk' \
@@ -24,14 +24,14 @@ function assertDependencies() {
 # return: 0 -> found, 1 -> not found
 # param1: quizfile
 # param2: question number (>= 1)
-function outputQuestionID() {
+outputQuestionID() {
 	grep '^#' "$1" | awk "NR==$2" | grep .
 }
 
 # Output a full question from the quizfile
 # param1: quizfile
 # param2: question id
-function outputFullQuestion() {
+outputFullQuestion() {
 	awk -v id="$2" '/^#/ {f=0}
 		$0 ~ "^" id "[[:space:]]*$" || f {f=1;print}' "$1"
 	# [:space:] ist ein Workaround falls CRLF im quizfile
@@ -40,7 +40,7 @@ function outputFullQuestion() {
 # Output the question without possible options
 # param1: quizfile
 # param2: question id
-function outputQuestionOnly() {
+outputQuestionOnly() {
 	outputFullQuestion "$1" "$2" | \
 	awk '/^(\[[_x]\]|\([_x]\)|___|0\/1|_[[:digit:]]_)/{exit}; NR>2'
 }
@@ -49,7 +49,7 @@ function outputQuestionOnly() {
 # param1: quizfile
 # param2: question id
 # param3: question type
-function outputExplanation() {
+outputExplanation() {
 	case $3 in
 		"_i_")
 			outputFullQuestion "$1" "$2" | \
@@ -70,7 +70,7 @@ function outputExplanation() {
 # Output the type i.e. one of "[x]", "(x)", "0/1", "___", "_i_"
 # param1: quizfile
 # param2: question id
-function outputQuestionType() {
+outputQuestionType() {
 	outputFullQuestion "$1" "$2" | \
 	awk '/^\[[_x]\]/      {print "[x]"; exit}
 	     /^\([_x]\)/      {print "(x)"; exit}
@@ -82,7 +82,7 @@ function outputQuestionType() {
 # Output the options if type is one of "[x]", "(x)"
 # param1: quizfile
 # param2: question id
-function outputOptions() {
+outputOptions() {
 	outputFullQuestion "$1" "$2" | \
 	awk '/^\[[_x]\]/
 	     /^\([_x]\)/'
@@ -92,7 +92,7 @@ function outputOptions() {
 # "0" or "1" for type "0/1", RE for type "___"
 # param1: quizfile
 # param2: question id
-function outputAnswer() {
+outputAnswer() {
 	outputFullQuestion "$1" "$2" | \
 	awk '/^0\/1/ {print $2; exit}
 	     /^___/ {sub(/^___[[:space:]]+/, ""); $0=gensub(/^\/(.*)\//, "\\1", "g"); gsub(/\\\//, "/"); print; exit}'
@@ -103,7 +103,7 @@ function outputAnswer() {
 # param2: question id
 # param3: question type
 # param4: user answer
-function outputOptionsAnswered() {
+outputOptionsAnswered() {
 	outputOptions "$1" "$2" | \
 	awk -v type="$3" -v ans="$4" \
 		'function inArray(arr, val) {for(k in arr) if(val == arr[k]) return 1; return 0}
@@ -114,7 +114,7 @@ function outputOptionsAnswered() {
 # Output the options clearing the answer crosses ("x")
 # param1: quizfile
 # param2: question id
-function outputOptionsWithoutAnswers() {
+outputOptionsWithoutAnswers() {
 	outputOptions "$1" "$2" | \
 	sed 's/^\[x]/[_]/' | sed 's/^(x)/(_)/'
 }
@@ -122,7 +122,7 @@ function outputOptionsWithoutAnswers() {
 # Output the cloze words of a question of type "_i_"
 # param1: quizfile
 # param2: question id
-function outputClozeWords() {
+outputClozeWords() {
     outputFullQuestion "$1" "$2" | \
 	awk '
 	    /^_[[:digit:]]_/ {w=1; print}
@@ -135,7 +135,7 @@ function outputClozeWords() {
 # Output the cloze with the original placeholders
 # param1: quizfile
 # param2: question id
-function outputClozeOriginal() {
+outputClozeOriginal() {
 	outputFullQuestion "$1" "$2" | \
 	awk '
 		/^_[[:digit:]]_/ {f1=1}
@@ -147,7 +147,7 @@ function outputClozeOriginal() {
 # Output the cloze clearing all placeholders
 # param1: quizfile
 # param2: question id
-function outputClozeCleared {
+outputClozeCleared {
 	outputClozeOriginal "$1" "$2" | sed 's/_[[:digit:]]_/___/g'
 }
 
@@ -155,7 +155,7 @@ function outputClozeCleared {
 # param1: quizfile
 # param2: question id
 # param3: user answer
-function outputClozeWithAnswers() {
+outputClozeWithAnswers() {
 	outputClozeCleared "$1" "$2" | \
 	awk -v answers="$3" '
 		BEGIN {
@@ -172,7 +172,7 @@ function outputClozeWithAnswers() {
 # input: cloze to fill in e.g. outputClozeOriginal or outputClozeWithAnswers
 # param1: quizfile
 # param2: question id
-function fillCloze() {
+fillCloze() {
 	CLOZEWORDS=$(outputClozeWords "$1" "$2")
 	#outputClozeOriginal "$1" "$2" | \
 	awk -v clozewords="$CLOZEWORDS" '
@@ -198,7 +198,7 @@ function fillCloze() {
 # param2: question id
 # param3: question type
 # param4: user answer
-function checkAnswer() {
+checkAnswer() {
 	FILE="$1"
 	ID="$2"
 	TYPE="$3"

@@ -4,6 +4,7 @@
 # Jakob Schöttl
 # 
 
+# shellcheck disable=SC1091
 source quizlib.sh
 
 echo ---------------
