@@ -129,7 +129,7 @@ Der Punkt steht für genau ein beliebiges Zeichen.  Daher findet der Ausdruck al
 
 #RE-12
 
-Wie viele der folgenden Dateien werden mit dem Regulrärem Ausdruck `.*` gefunden.
+Wie viele der folgenden Dateien werden mit dem Regulrären Ausdruck `.*` gefunden.
 
 * .gitignore
 * README
@@ -269,7 +269,7 @@ Jemand versucht ein großes Logfile mit `grep -F '[2013-11-'` zu durchsuchen.  W
 
 0/1 0
 
-Nein, der Aufruf von grep ist korrekt: Durch die Option `-F`, `--fixed-strings` (oder auch "fast") wird der Parameter *nicht* als Regulärer Ausdruck interpretiert, sondern als feste Zeichenkette, nach der gesucht wird.  Daher gibt es auch keinen Syntaxfehler wegen einer fehlenden schließenden eckigen Klammer.
+Nein, der Aufruf von grep ist korrekt: Durch die Option `-F`, `--fixed-strings` (oder auch engl. "fast") wird der Parameter *nicht* als Regulärer Ausdruck interpretiert, sondern als feste Zeichenkette, nach der gesucht wird.  Daher gibt es auch keinen Syntaxfehler wegen einer fehlenden schließenden eckigen Klammer.
 
 #RE-24
 
